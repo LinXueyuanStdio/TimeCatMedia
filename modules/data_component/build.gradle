@@ -1,0 +1,26 @@
+apply from: "${project.rootDir}/gradle/library_header.gradle"
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api 'androidx.appcompat:appcompat:1.2.0'
+}
+
+
+android {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.androidx_lib["core-ktx"]
+    implementation rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
+    implementation rootProject.ext.androidx_lib["androidx.room:runtime"]
+
+    api rootProject.ext.dependencies["moshi"]
+    kapt rootProject.ext.dependencies["moshi-kotlin"]
+}
+
+apply from: "${project.rootDir}/gradle/library_tail.gradle"

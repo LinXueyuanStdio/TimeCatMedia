@@ -1,0 +1,30 @@
+apply from: "${project.rootDir}/gradle/library_header.gradle"
+
+android {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':modules:common_component')
+    //web dav
+    implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.7'
+    //ftp
+    implementation 'commons-net:commons-net:3.7.2'
+    //smb
+    implementation 'com.hierynomus:smbj:0.10.0'
+    implementation 'com.rapid7.client:dcerpc:0.10.0'
+
+    implementation 'com.huawei.hms:scan:1.3.1.300'
+
+    kapt rootProject.ext.dependencies["arouter-compiler"]
+}
+
+apply from: "${project.rootDir}/gradle/library_tail.gradle"

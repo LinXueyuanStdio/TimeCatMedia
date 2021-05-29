@@ -1,0 +1,60 @@
+apply from: "${project.rootDir}/gradle/library_header.gradle"
+
+android {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
+    api project(":modules:data_component")
+
+    api rootProject.ext.androidx_lib["core-ktx"]
+    api rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
+    api rootProject.ext.dependencies["kotlinx-coroutines-core"]
+    api rootProject.ext.dependencies["kotlinx-coroutines-android"]
+    api rootProject.ext.androidx_lib["lifecycle-viewmodel-ktx"]
+    api rootProject.ext.androidx_lib["lifecycle-runtime-ktx"]
+    api rootProject.ext.androidx_lib["androidx.room:room-ktx"]
+
+    api rootProject.ext.androidx_lib["appcompat"]
+    api rootProject.ext.androidx_lib["constraint-layout"]
+    api rootProject.ext.androidx_lib["recyclerview"]
+    api rootProject.ext.androidx_lib["design"]
+    api rootProject.ext.androidx_lib["swiperefreshlayout"]
+    api rootProject.ext.androidx_lib["multidex"]
+    api rootProject.ext.androidx_lib["androidx.room:runtime"]
+    api rootProject.ext.androidx_lib["palette"]
+    api rootProject.ext.androidx_lib["paging"]
+    api rootProject.ext.androidx_lib["startup"]
+    api rootProject.ext.androidx_lib["preference"]
+
+    api rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["converter-moshi"]
+    implementation rootProject.ext.dependencies["mmkv"]
+
+    api rootProject.ext.dependencies["immersionbar"]
+
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    api 'org.nanohttpd:nanohttpd:2.3.1'
+
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.5.0'
+    implementation 'com.tencent.bugly:nativecrashreport:3.8.0'
+
+    api(name: 'sevenzipjbinding4Android', ext: 'aar')
+
+    implementation files('libs/mmkv-annotation.jar')
+
+    kapt files('libs/mmkv-compiler.jar')
+    kapt rootProject.ext.androidx_lib["androidx.room:compiler"]
+}
+
+apply from: "${project.rootDir}/gradle/library_tail.gradle"

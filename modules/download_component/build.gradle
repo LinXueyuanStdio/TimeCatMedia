@@ -1,0 +1,29 @@
+apply from: "${project.rootDir}/gradle/library_header.gradle"
+
+android {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    repositories {
+        flatDir { dirs 'libs' }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':modules:common_component')
+
+    implementation files('libs/jlibtorrent-1.2.11.0.jar')
+    implementation files('libs/jlibtorrent-android-arm-1.2.11.0.jar')
+
+    implementation(name: 'thunder', ext: 'aar')
+}
+
+
+apply from: "${project.rootDir}/gradle/library_tail.gradle"
