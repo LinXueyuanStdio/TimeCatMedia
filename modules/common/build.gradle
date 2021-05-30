@@ -17,13 +17,16 @@ dependencies {
 
     api project(':modules:data')
 
-    api rootProject.ext.androidx_lib["core-ktx"]
     api rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
     api rootProject.ext.dependencies["kotlinx-coroutines-core"]
     api rootProject.ext.dependencies["kotlinx-coroutines-android"]
+
+    api rootProject.ext.androidx_lib["core-ktx"]
     api rootProject.ext.androidx_lib["lifecycle-viewmodel-ktx"]
     api rootProject.ext.androidx_lib["lifecycle-runtime-ktx"]
+
     api rootProject.ext.androidx_lib["androidx.room:room-ktx"]
+    kapt rootProject.ext.androidx_lib["androidx.room:compiler"]
 
     api rootProject.ext.androidx_lib["appcompat"]
     api rootProject.ext.androidx_lib["constraint-layout"]
@@ -39,7 +42,10 @@ dependencies {
 
     api rootProject.ext.dependencies["retrofit"]
     implementation rootProject.ext.dependencies["converter-moshi"]
+
     implementation rootProject.ext.dependencies["mmkv"]
+    implementation files('libs/mmkv-annotation.jar')
+    kapt files('libs/mmkv-compiler.jar')
 
     api rootProject.ext.dependencies["immersionbar"]
 
@@ -50,11 +56,6 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:3.8.0'
 
     api(name: 'sevenzipjbinding4Android', ext: 'aar')
-
-    implementation files('libs/mmkv-annotation.jar')
-
-    kapt files('libs/mmkv-compiler.jar')
-    kapt rootProject.ext.androidx_lib["androidx.room:compiler"]
 }
 
 apply from: "${project.rootDir}/gradle/library_tail.gradle"
