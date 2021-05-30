@@ -1,12 +1,12 @@
 include ':app'
 include ':module-git'
-include ':modules:anime_component'
-include ':modules:common_component'
-include ':modules:data_component'
-include ':modules:download_component'
+include ':modules:anime'
+include ':modules:common'
+include ':modules:data'
+include ':modules:download'
 include ':modules:local_component'
-include ':modules:player_component'
-include ':modules:stream_component'
+include ':modules:player'
+include ':modules:stream'
 include ':modules:user_component'
 
 rootProject.name = "TimeCatMedia"

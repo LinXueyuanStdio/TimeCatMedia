@@ -8,22 +8,13 @@ android {
     buildFeatures {
         dataBinding = true
     }
-
-    repositories {
-        flatDir { dirs 'libs' }
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':modules:common')
 
-    implementation project(':modules:common_component')
-
-    implementation files('libs/jlibtorrent-1.2.11.0.jar')
-    implementation files('libs/jlibtorrent-android-arm-1.2.11.0.jar')
-
-    implementation(name: 'thunder', ext: 'aar')
+    implementation 'com.youth.banner:banner:2.1.0'
 }
-
 
 apply from: "${project.rootDir}/gradle/library_tail.gradle"

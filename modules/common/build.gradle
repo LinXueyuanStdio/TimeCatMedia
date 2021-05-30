@@ -15,7 +15,7 @@ dependencies {
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
-    api project(":modules:data_component")
+    api project(':modules:data')
 
     api rootProject.ext.androidx_lib["core-ktx"]
     api rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
