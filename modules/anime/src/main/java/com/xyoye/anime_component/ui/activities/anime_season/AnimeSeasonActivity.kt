@@ -1,6 +1,6 @@
 package com.xyoye.anime_component.ui.activities.anime_season
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.ActivityAnimeSeasonBinding
@@ -14,12 +14,12 @@ import com.xyoye.common_component.adapter.initData
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.extension.*
+import com.xyoye.common_component.utils.dp2px
 import com.xyoye.common_component.utils.view.ItemDecorationDrawable
 import com.xyoye.common_component.utils.view.ItemDecorationSpace
-import com.xyoye.common_component.utils.dp2px
 import com.xyoye.data_component.data.CommonTypeData
 
-@Route(path = RouteTable.Anime.AnimeSeason)
+@RouterAnno(hostAndPath = RouteTable.Anime.AnimeSeason)
 class AnimeSeasonActivity : BaseActivity<AnimeSeasonViewModel, ActivityAnimeSeasonBinding>() {
     private val animeAdapter = AnimeAdapter.getAdapter(this)
 

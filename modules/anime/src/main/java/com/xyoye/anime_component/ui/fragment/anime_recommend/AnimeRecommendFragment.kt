@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.lifecycle.Observer
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.FragmentAnimeRecommendBinding
@@ -18,9 +17,9 @@ import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.extension.grid
 import com.xyoye.common_component.extension.setData
 import com.xyoye.common_component.extension.setGlideImage
+import com.xyoye.common_component.utils.dp2px
 import com.xyoye.common_component.utils.view.ItemDecorationDrawable
 import com.xyoye.common_component.utils.view.ItemDecorationSpace
-import com.xyoye.common_component.utils.dp2px
 import com.xyoye.data_component.data.AnimeData
 import com.xyoye.data_component.data.BangumiData
 
@@ -85,8 +84,7 @@ class AnimeRecommendFragment :
                                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                     mAttachActivity, animeCoverIv, animeCoverIv.transitionName
                                 )
-                                ARouter.getInstance()
-                                    .build(RouteTable.Anime.AnimeDetail)
+                                NAV.raw(RouteTable.Anime.AnimeDetail)
                                     .withInt("animeId", data.animeId)
                                     .withOptionsCompat(options)
                                     .navigation(mAttachActivity)

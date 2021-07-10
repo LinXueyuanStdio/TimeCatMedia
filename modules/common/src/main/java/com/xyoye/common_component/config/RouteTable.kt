@@ -7,67 +7,68 @@ package com.xyoye.common_component.config
  */
 
 object RouteTable {
+    const val HOST = "anime"
 
     object Anime {
-        const val Search = "/anime/search"
-        const val HomeFragment = "/anime/home_fragment"
-        const val AnimeDetail = "/anime/anime_detail"
-        const val AnimeSeason = "/anime/anime_season"
-        const val AnimeFollow = "/anime/follow"
-        const val AnimeTag = "/anime/tag"
-        const val AnimeHistory = "/anime/history"
+        const val Search = "$HOST/anime/search"
+        const val HomeFragment = "$HOST/anime/home_fragment"
+        const val AnimeDetail = "$HOST/anime/anime_detail"
+        const val AnimeSeason = "$HOST/anime/anime_season"
+        const val AnimeFollow = "$HOST/anime/follow"
+        const val AnimeTag = "$HOST/anime/tag"
+        const val AnimeHistory = "$HOST/anime/history"
     }
 
     object Local {
-        const val MediaFragment = "/local/media_fragment"
-        const val BindDanmu = "/local/bind_danmu"
-        const val BindSubtitle = "/local/bind_subtitle"
-        const val LocalMediaStorage = "/local/local_media_storage"
-        const val PlayHistory = "/local/play_history"
-        const val BiliBiliDanmu = "/local/bilibili_danmu"
-        const val ShooterSubtitle = "/local/shooter_subtitle"
+        const val MediaFragment = "$HOST/local/media_fragment"
+        const val BindDanmu = "$HOST/local/bind_danmu"
+        const val BindSubtitle = "$HOST/local/bind_subtitle"
+        const val LocalMediaStorage = "$HOST/local/local_media_storage"
+        const val PlayHistory = "$HOST/local/play_history"
+        const val BiliBiliDanmu = "$HOST/local/bilibili_danmu"
+        const val ShooterSubtitle = "$HOST/local/shooter_subtitle"
     }
 
     object User {
-        const val PersonalFragment = "/user/personal_fragment"
-        const val UserLogin = "/user/login"
-        const val UserRegister = "/user/register"
-        const val UserForgot = "/user/forgot"
-        const val UserInfo = "/user/info"
-        const val SettingPlayer = "/user/setting_player"
-        const val SettingApp = "/user/setting_app"
-        const val WebView = "/user/web_view"
-        const val ScanManager = "/user/scan_manager"
-        const val CacheManager = "/user/cache_manager"
-        const val CommonManager = "/user/common_manager"
-        const val Feedback = "/user/feedback"
-        const val AboutUs = "/user/about_us"
-        const val License = "/user/license"
-        const val SwitchTheme = "/user/switch_theme"
+        const val PersonalFragment = "$HOST/user/personal_fragment"
+        const val UserLogin = "$HOST/user/login"
+        const val UserRegister = "$HOST/user/register"
+        const val UserForgot = "$HOST/user/forgot"
+        const val UserInfo = "$HOST/user/info"
+        const val SettingPlayer = "$HOST/user/setting_player"
+        const val SettingApp = "$HOST/user/setting_app"
+        const val WebView = "$HOST/user/web_view"
+        const val ScanManager = "$HOST/user/scan_manager"
+        const val CacheManager = "$HOST/user/cache_manager"
+        const val CommonManager = "$HOST/user/common_manager"
+        const val Feedback = "$HOST/user/feedback"
+        const val AboutUs = "$HOST/user/about_us"
+        const val License = "$HOST/user/license"
+        const val SwitchTheme = "$HOST/user/switch_theme"
     }
 
     object Player {
-        const val Player = "/player/player_interceptor"
-        const val PlayerCenter = "/player/player"
+        const val Player = "$HOST/player/player_interceptor"
+        const val PlayerCenter = "$HOST/player/player"
     }
 
     object Download {
-        const val DownloadSelection = "/download/selection"
-        const val DownloadList = "/download/list"
-        const val DownloadDetail = "/download/detail"
-        const val PlaySelection = "/play/selection"
+        const val DownloadSelection = "$HOST/download/selection"
+        const val DownloadList = "$HOST/download/list"
+        const val DownloadDetail = "$HOST/download/detail"
+        const val PlaySelection = "$HOST/play/selection"
     }
 
     object Stream {
-        const val WebDavLogin = "/stream/web_dav_login"
-        const val WebDavFile = "/stream/web_dav_file"
-        const val FTPLogin = "/stream/ftp_login"
-        const val FTPFile = "/stream/ftp_file"
-        const val SmbLogin = "/stream/smb_login"
-        const val SmbFile = "/stream/smb_file"
-        const val RemoteLogin = "/stream/remote_login"
-        const val RemoteScan = "/stream/remote_scan"
-        const val RemoteFile = "/stream/remote_file"
-        const val RemoteControl = "/stream/remote_control"
+        const val WebDavLogin = "$HOST/stream/web_dav_login"
+        const val WebDavFile = "$HOST/stream/web_dav_file"
+        const val FTPLogin = "$HOST/stream/ftp_login"
+        const val FTPFile = "$HOST/stream/ftp_file"
+        const val SmbLogin = "$HOST/stream/smb_login"
+        const val SmbFile = "$HOST/stream/smb_file"
+        const val RemoteLogin = "$HOST/stream/remote_login"
+        const val RemoteScan = "$HOST/stream/remote_scan"
+        const val RemoteFile = "$HOST/stream/remote_file"
+        const val RemoteControl = "$HOST/stream/remote_control"
     }
 }

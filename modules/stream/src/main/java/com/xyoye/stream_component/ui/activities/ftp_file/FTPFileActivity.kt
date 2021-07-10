@@ -2,9 +2,14 @@ package com.xyoye.stream_component.ui.activities.ftp_file
 
 import android.content.Intent
 import android.view.KeyEvent
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.ActivityResultCallback
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
+import com.xiaojinzi.component.bean.ActivityResult
+import com.xiaojinzi.component.impl.RouterErrorResult
+import com.xiaojinzi.component.impl.RouterRequest
+import com.xiaojinzi.component.impl.RouterResult
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity
@@ -24,13 +29,13 @@ import com.xyoye.stream_component.databinding.ActivityFtpFileBinding
 import com.xyoye.stream_component.databinding.ItemStorageFolderBinding
 import org.apache.commons.net.ftp.FTPFile
 
-@Route(path = RouteTable.Stream.FTPFile)
+@RouterAnno(hostAndPath = RouteTable.Stream.FTPFile)
 class FTPFileActivity : BaseActivity<FTPFileViewModel, ActivityFtpFileBinding>() {
     companion object {
         private const val PLAY_REQUEST_CODE = 1001
     }
 
-    @Autowired
+    @AttrValueAutowiredAnno("ftpData")
     @JvmField
     var ftpData: MediaLibraryEntity? = null
 
@@ -43,7 +48,7 @@ class FTPFileActivity : BaseActivity<FTPFileViewModel, ActivityFtpFileBinding>()
     override fun getLayoutId() = R.layout.activity_ftp_file
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         if (ftpData == null) {
             ToastCenter.showError("媒体库数据错误，请重试")
@@ -83,13 +88,6 @@ class FTPFileActivity : BaseActivity<FTPFileViewModel, ActivityFtpFileBinding>()
             }
         }
         return super.onKeyDown(keyCode, event)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == PLAY_REQUEST_CODE) {
-            viewModel.closeFTP()
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onDestroy() {
@@ -164,14 +162,24 @@ class FTPFileActivity : BaseActivity<FTPFileViewModel, ActivityFtpFileBinding>()
         }
 
         viewModel.playVideoLiveData.observe(this) {
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
+            NAV.raw(RouteTable.Player.Player)
                 .withParcelable("playParams", it)
-                .navigation(this, PLAY_REQUEST_CODE)
+                .requestCode( PLAY_REQUEST_CODE)
+                .forwardForResult(object :ActivityResultCallback{
+                    override fun onCancel(originalRequest: RouterRequest?) {
+                    }
+
+                    override fun onError(errorResult: RouterErrorResult) {
+                    }
+
+                    override fun onSuccess(result: RouterResult, t: ActivityResult) {
+                        viewModel.closeFTP()
+                    }
+                })
         }
     }
 
-    private fun openVideo(ftpFile: FTPFile){
+    private fun openVideo(ftpFile: FTPFile) {
         //仅支持视频文件
         if (!isVideoFile(ftpFile.name)) {
             ToastCenter.showWarning("不支持的视频文件格式")
@@ -179,7 +187,7 @@ class FTPFileActivity : BaseActivity<FTPFileViewModel, ActivityFtpFileBinding>()
         }
 
         val showTips = AppConfig.isShowFTPVideoTips()
-        if (!showTips){
+        if (!showTips) {
             viewModel.openVideoFile(ftpFile.name, ftpFile.size)
             return
         }
@@ -187,7 +195,7 @@ class FTPFileActivity : BaseActivity<FTPFileViewModel, ActivityFtpFileBinding>()
         CommonDialog.Builder().run {
             content = "FTP视频播放不能调整进度至未缓冲位置，请谨慎调整视频进度"
             addNegative()
-            addPositive{
+            addPositive {
                 it.dismiss()
                 viewModel.openVideoFile(ftpFile.name, ftpFile.size)
             }

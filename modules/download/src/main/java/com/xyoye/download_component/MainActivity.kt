@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.immersionbar.ImmersionBar
+import com.timecat.component.router.app.NAV
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.extension.isNightMode
 import com.xyoye.common_component.weight.dialog.FileManagerDialog
@@ -28,17 +28,12 @@ class MainActivity : AppCompatActivity() {
             .init()
 
         findViewById<Button>(R.id.launch_download_manager_bt).setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.Download.DownloadList)
-                .navigation()
+            NAV.go(RouteTable.Download.DownloadList)
         }
 
         findViewById<Button>(R.id.add_torrent_task_bt).setOnClickListener {
             FileManagerDialog(FileManagerAction.ACTION_SELECT_TORRENT) {
-                ARouter.getInstance()
-                    .build(RouteTable.Download.DownloadSelection)
-                    .withString("torrentPath", it)
-                    .navigation()
+                NAV.go(RouteTable.Download.DownloadSelection, "torrentPath", it)
             }.show(this)
         }
 
@@ -52,9 +47,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun play(url: String) {
-        ARouter.getInstance()
-                .build(RouteTable.Download.PlaySelection)
-                .withString("magnetLink", url)
-                .navigation()
+        NAV.go(RouteTable.Download.PlaySelection, "magnetLink", url)
     }
 }

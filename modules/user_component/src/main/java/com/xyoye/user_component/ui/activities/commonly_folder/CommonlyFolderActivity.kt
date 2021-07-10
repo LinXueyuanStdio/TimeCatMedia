@@ -1,19 +1,18 @@
 package com.xyoye.user_component.ui.activities.commonly_folder
 
 import android.os.Environment
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.AppConfig
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.weight.dialog.CommonDialog
 import com.xyoye.common_component.weight.dialog.FileManagerDialog
 import com.xyoye.data_component.enums.FileManagerAction
-
 import com.xyoye.user_component.BR
 import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivityCommonlyFolderBinding
 
-@Route(path = RouteTable.User.CommonManager)
+@RouterAnno(hostAndPath = RouteTable.User.CommonManager)
 class CommonlyFolderActivity :
     BaseActivity<CommonlyFolderViewModel, ActivityCommonlyFolderBinding>() {
 

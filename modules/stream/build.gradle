@@ -13,7 +13,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':modules:common')
+    implementation rootProject.ext.anime["common"]
     //web dav
     implementation 'com.thegrizzlylabs.sardine-android:sardine-android:0.7'
     //ftp

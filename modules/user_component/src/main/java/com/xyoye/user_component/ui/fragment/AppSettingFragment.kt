@@ -3,7 +3,7 @@ package com.xyoye.user_component.ui.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.preference.*
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.common_component.config.AppConfig
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.utils.AppUtils
@@ -28,9 +28,7 @@ class AppSettingFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         findPreference<Preference>("dark_mode")?.apply {
             setOnPreferenceClickListener {
-                ARouter.getInstance()
-                    .build(RouteTable.User.SwitchTheme)
-                    .navigation()
+                NAV.go(RouteTable.User.SwitchTheme)
                 return@setOnPreferenceClickListener true
             }
         }
@@ -45,27 +43,21 @@ class AppSettingFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("license")?.apply {
             setOnPreferenceClickListener {
-                ARouter.getInstance()
-                    .build(RouteTable.User.License)
-                    .navigation()
+                NAV.go(RouteTable.User.License)
                 return@setOnPreferenceClickListener true
             }
         }
 
         findPreference<Preference>("about_us")?.apply {
             setOnPreferenceClickListener {
-                ARouter.getInstance()
-                    .build(RouteTable.User.AboutUs)
-                    .navigation()
+                NAV.go(RouteTable.User.AboutUs)
                 return@setOnPreferenceClickListener true
             }
         }
 
         findPreference<Preference>("feedback")?.apply {
             setOnPreferenceClickListener {
-                ARouter.getInstance()
-                    .build(RouteTable.User.Feedback)
-                    .navigation()
+                NAV.go(RouteTable.User.Feedback)
                 return@setOnPreferenceClickListener true
             }
         }

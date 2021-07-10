@@ -1,9 +1,14 @@
 package com.xyoye.player_component.ui.activities.player_intent
 
-import android.content.Intent
-import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
+import com.timecat.component.router.app.ActivityResultCallback
+import com.timecat.component.router.app.ForwardCallback
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.bean.ActivityResult
+import com.xiaojinzi.component.impl.RouterErrorResult
+import com.xiaojinzi.component.impl.RouterRequest
+import com.xiaojinzi.component.impl.RouterResult
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.utils.UriUtils
@@ -70,13 +75,27 @@ class PlayerIntentActivity : BaseActivity<PlayerIntentViewModel, ActivityPlayerI
             addPositive("绑定弹幕") {
                 it.dismiss()
 
-                ARouter.getInstance()
-                    .build(RouteTable.Local.BindDanmu)
+                NAV.raw(RouteTable.Local.BindDanmu)
                     .withString("videoName", videoTitle)
-                    .navigation(
-                        this@PlayerIntentActivity,
-                        REQUEST_CODE_BIND_DANMU
-                    )
+                    .requestCode(REQUEST_CODE_BIND_DANMU)
+                    .forwardForResult(object : ActivityResultCallback {
+                        override fun onCancel(originalRequest: RouterRequest?) {
+                        }
+
+                        override fun onError(errorResult: RouterErrorResult) {
+                        }
+
+                        override fun onSuccess(result: RouterResult, t: ActivityResult) {
+                            if (t.resultCode == RESULT_OK) {
+                                val danmuPath = t.data?.getStringExtra("danmu_path")
+                                val episodeId = t.data?.getIntExtra("episode_id", 0) ?: 0
+                                playParams!!.danmuPath = danmuPath
+                                playParams!!.episodeId = episodeId
+                            }
+                            //绑定弹幕后自动播放
+                            openPlayer(playParams!!)
+                        }
+                    })
             }
             addNegative("直接播放") {
                 it.dismiss()
@@ -86,25 +105,22 @@ class PlayerIntentActivity : BaseActivity<PlayerIntentViewModel, ActivityPlayerI
         }.build().show(this)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_BIND_DANMU) {
-            if (resultCode == RESULT_OK) {
-                val danmuPath = data?.getStringExtra("danmu_path")
-                val episodeId = data?.getIntExtra("episode_id", 0) ?: 0
-                playParams!!.danmuPath = danmuPath
-                playParams!!.episodeId = episodeId
-            }
-            //绑定弹幕后自动播放
-            openPlayer(playParams!!)
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
     private fun openPlayer(playParams: PlayParams) {
-        ARouter.getInstance()
-            .build(RouteTable.Player.PlayerCenter)
+        NAV.raw(RouteTable.Player.PlayerCenter)
             .withParcelable("playParams", playParams)
-            .navigation()
-        finish()
+            .forward(object : ForwardCallback {
+                override fun onError(errorResult: RouterErrorResult) {
+                }
+
+                override fun onCancel(originalRequest: RouterRequest?) {
+                }
+
+                override fun onSuccess(result: RouterResult) {
+                    finish()
+                }
+
+                override fun onEvent(successResult: RouterResult?, errorResult: RouterErrorResult?) {
+                }
+            })
     }
 }

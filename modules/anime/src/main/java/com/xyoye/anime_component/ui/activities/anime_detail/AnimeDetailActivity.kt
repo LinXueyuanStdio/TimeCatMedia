@@ -7,9 +7,6 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -20,6 +17,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.appbar.AppBarLayout
 import com.gyf.immersionbar.ImmersionBar
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.ActivityAnimeDetailBinding
@@ -28,17 +28,20 @@ import com.xyoye.anime_component.ui.fragment.anime_intro.AnimeIntroFragment
 import com.xyoye.anime_component.ui.fragment.anime_recommend.AnimeRecommendFragment
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
-import com.xyoye.common_component.extension.*
+import com.xyoye.common_component.extension.isNightMode
+import com.xyoye.common_component.extension.setGlideImage
+import com.xyoye.common_component.extension.setTextColorRes
+import com.xyoye.common_component.extension.toResColor
 import com.xyoye.common_component.utils.dp2px
 import com.xyoye.common_component.weight.ToastCenter
 import com.xyoye.data_component.data.BangumiData
 import kotlin.math.abs
 import kotlin.math.max
 
-@Route(path = RouteTable.Anime.AnimeDetail)
+@RouterAnno(hostAndPath = RouteTable.Anime.AnimeDetail)
 class AnimeDetailActivity : BaseActivity<AnimeDetailViewModel, ActivityAnimeDetailBinding>() {
 
-    @Autowired
+    @AttrValueAutowiredAnno("animeId")
     @JvmField
     var animeId: Int = -1
 
@@ -57,7 +60,7 @@ class AnimeDetailActivity : BaseActivity<AnimeDetailViewModel, ActivityAnimeDeta
     }
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         postponeEnterTransition()
 
@@ -79,7 +82,7 @@ class AnimeDetailActivity : BaseActivity<AnimeDetailViewModel, ActivityAnimeDeta
             //返回图标颜色
             val color = getBackIconColor(offsetPercent)
             val colorFilter =
-                    BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
+                BlendModeColorFilterCompat.createBlendModeColorFilterCompat(color, BlendModeCompat.SRC_IN)
             dataBinding.toolbar.navigationIcon?.colorFilter = colorFilter
 
             //标题颜色
@@ -98,9 +101,9 @@ class AnimeDetailActivity : BaseActivity<AnimeDetailViewModel, ActivityAnimeDeta
             //tips: MIUI深色模式下状态栏字体颜色不受此控制
             val isDarkFont = calcOffset > 0 && !isNightMode()
             ImmersionBar.with(this)
-                    .transparentBar()
-                    .statusBarDarkFont(isDarkFont)
-                    .init()
+                .transparentBar()
+                .statusBarDarkFont(isDarkFont)
+                .init()
         })
 
         dataBinding.tabLayout.setupWithViewPager(dataBinding.viewpager)

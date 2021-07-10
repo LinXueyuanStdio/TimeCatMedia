@@ -98,10 +98,8 @@ class Retrofit private constructor() {
         if (resDomain) {
             builder.addInterceptor(ResDomainInterceptor())
         }
-        //日志输出
-        if (BuildConfig.IS_DEBUG_MODE) {
-            builder.addInterceptor(LoggerInterceptor().retrofit())
-        }
+        //TODO 日志输出
+        builder.addInterceptor(LoggerInterceptor().retrofit())
         return builder.build()
     }
 }

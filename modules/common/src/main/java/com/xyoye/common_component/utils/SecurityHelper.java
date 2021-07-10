@@ -2,7 +2,7 @@ package com.xyoye.common_component.utils;
 
 import android.content.Context;
 
-import com.xyoye.common_component.base.app.BaseApplication;
+import com.timecat.extend.arms.BaseApplication;
 
 /**
  * Created by xyoye on 2021/1/6.
@@ -20,7 +20,7 @@ public class SecurityHelper {
     }
 
     private SecurityHelper() {
-        appContext = BaseApplication.Companion.getAppContext();
+        appContext = BaseApplication.getContext();
     }
 
     private static class Holder {

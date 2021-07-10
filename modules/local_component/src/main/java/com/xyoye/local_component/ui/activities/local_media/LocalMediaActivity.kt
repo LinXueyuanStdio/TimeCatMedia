@@ -1,9 +1,9 @@
 package com.xyoye.local_component.ui.activities.local_media
 
+import android.os.Parcelable
 import android.view.KeyEvent
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity
@@ -22,7 +22,7 @@ import com.xyoye.local_component.databinding.ActivityLocalMediaBinding
 import com.xyoye.local_component.databinding.ItemMediaFolderBinding
 import com.xyoye.local_component.databinding.ItemMediaVideoBinding
 
-@Route(path = RouteTable.Local.LocalMediaStorage)
+@RouterAnno(hostAndPath = RouteTable.Local.LocalMediaStorage)
 class LocalMediaActivity : BaseActivity<LocalMediaViewModel, ActivityLocalMediaBinding>() {
     companion object {
         private const val ACTION_BIND_DANMU_AUTO = 1
@@ -33,16 +33,12 @@ class LocalMediaActivity : BaseActivity<LocalMediaViewModel, ActivityLocalMediaB
         private const val ACTION_SHARE_TV = 6
     }
 
-    override fun initViewModel() =
-        ViewModelInit(
-            BR.viewModel,
-            LocalMediaViewModel::class.java
-        )
+    override fun initViewModel() = ViewModelInit(BR.viewModel, LocalMediaViewModel::class.java)
 
     override fun getLayoutId() = R.layout.activity_local_media
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = "本地媒体库"
 
@@ -74,10 +70,7 @@ class LocalMediaActivity : BaseActivity<LocalMediaViewModel, ActivityLocalMediaB
         }
 
         viewModel.playVideoLiveData.observe(this) {
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
-                .withParcelable("playParams", it)
-                .navigation()
+            NAV.go(RouteTable.Player.Player, "playParams", it as Parcelable)
         }
 
         dataBinding.refreshLayout.setColorSchemeResources(R.color.text_theme)
@@ -203,17 +196,13 @@ class LocalMediaActivity : BaseActivity<LocalMediaViewModel, ActivityLocalMediaB
                 ACTION_UNBIND_DANMU -> viewModel.removeDanmu(data.filePath)
                 ACTION_UNBIND_SUBTITLE -> viewModel.removeSubtitle(data.filePath)
                 ACTION_BIND_DANMU_MANUAL -> {
-                    ARouter.getInstance()
-                        .build(RouteTable.Local.BindDanmu)
+                    NAV.raw(RouteTable.Local.BindDanmu)
                         .withString("videoName", getFileName(data.filePath))
                         .withString("videoPath", data.filePath)
                         .navigation()
                 }
                 ACTION_BIND_SUBTITLE -> {
-                    ARouter.getInstance()
-                        .build(RouteTable.Local.BindSubtitle)
-                        .withString("videoPath", data.filePath)
-                        .navigation()
+                    NAV.go(RouteTable.Local.BindSubtitle, "videoPath", data.filePath)
                 }
             }
             return@BottomActionDialog true

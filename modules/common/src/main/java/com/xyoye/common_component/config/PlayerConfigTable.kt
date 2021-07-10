@@ -7,41 +7,41 @@ import com.xyoye.data_component.enums.VLCPixelFormat
 import com.xyoye.mmkv_annotation.MMKVFiled
 import com.xyoye.mmkv_annotation.MMKVKotlinClass
 
-@MMKVKotlinClass(className = "PlayerConfig")
+//@MMKVKotlinClass(className = "PlayerConfig")
 object PlayerConfigTable {
     //是否允许屏幕旋转
-    @MMKVFiled
+//    @MMKVFiled
     const val allowOrientationChange = true
 
     //是否使用surface view
-    @MMKVFiled
+//    @MMKVFiled
     const val useSurfaceView = false
 
     //是否使用硬解码
-    @MMKVFiled
+//    @MMKVFiled
     const val useMediaCodeC = false
 
     //是否使用h265硬解码
-    @MMKVFiled
+//    @MMKVFiled
     const val useMediaCodeCH265 = false
 
     //是否使用OpenSLES
-    @MMKVFiled
+//    @MMKVFiled
     const val useOpenSlEs = false
 
     //使用播放器类型
-    @MMKVFiled
+//    @MMKVFiled
     val usePlayerType = PlayerType.TYPE_IJK_PLAYER.value
 
     //使用播放器像素格式
-    @MMKVFiled
+//    @MMKVFiled
     val usePixelFormat = PixelFormat.PIXEL_AUTO.value
 
     //VLC内核像素格式
-    @MMKVFiled
+//    @MMKVFiled
     val useVLCPixelFormat = VLCPixelFormat.PIXEL_RGB_32.value
 
     //VLC内核硬件加速
-    @MMKVFiled
+//    @MMKVFiled
     val useVLCHWDecoder = VLCHWDecode.HW_ACCELERATION_AUTO.value
 }

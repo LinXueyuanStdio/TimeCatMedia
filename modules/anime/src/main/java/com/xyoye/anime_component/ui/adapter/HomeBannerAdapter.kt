@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.ItemBannerBinding
 import com.xyoye.common_component.config.RouteTable
@@ -45,7 +45,7 @@ class HomeBannerAdapter(bannerDetails: MutableList<BannerDetailData>) :
                 bannerIv.setGlideImage(data.imageUrl)
                 bannerTitleTv.text = data.title
                 itemLayout.setOnClickListener {
-                    ARouter.getInstance().build(RouteTable.User.WebView)
+                    NAV.raw(RouteTable.User.WebView)
                         .withString("titleText", data.title)
                         .withString("url", data.url)
                         .navigation()

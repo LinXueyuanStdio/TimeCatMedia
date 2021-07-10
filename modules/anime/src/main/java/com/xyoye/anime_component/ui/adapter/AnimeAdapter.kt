@@ -6,9 +6,9 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.DiffUtil
-import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.timecat.component.router.app.NAV
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.ItemAnimeBinding
 import com.xyoye.anime_component.utils.AnimeDiffCallBack
@@ -51,7 +51,7 @@ class AnimeAdapter : BaseAdapter<AnimeData>() {
                         animeNameTv.text = data.animeTitle
                         itemLayout.setOnClickListener {
                             //防止快速点击
-                            if(FastClickFilter.isNeedFilter()){
+                            if (FastClickFilter.isNeedFilter()) {
                                 return@setOnClickListener
                             }
 
@@ -60,8 +60,7 @@ class AnimeAdapter : BaseAdapter<AnimeData>() {
                                 activity, coverIv, coverIv.transitionName
                             )
 
-                            ARouter.getInstance()
-                                .build(RouteTable.Anime.AnimeDetail)
+                            NAV.raw(RouteTable.Anime.AnimeDetail)
                                 .withInt("animeId", data.animeId)
                                 .withOptionsCompat(options)
                                 .navigation(activity)

@@ -3,7 +3,7 @@ package com.xyoye.common_component.database
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 
 /**
  * Created by xyoye on 2020/7/29.
@@ -38,7 +38,7 @@ class DatabaseManager private constructor() {
     }
 
     private var database = Room.databaseBuilder(
-        BaseApplication.getAppContext(),
+        BaseApplication.getContext(),
         DatabaseInfo::class.java,
         "rood_db"
     ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()

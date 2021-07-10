@@ -1,7 +1,7 @@
 package com.xyoye.local_component.ui.dialog
 
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.adapter.initData
@@ -52,10 +52,7 @@ class DanmuDownloadDialog : BaseBottomDialog<DialogDanmuDowanloadBinding> {
         binding.downloadPathTv.text = PathHelper.getDanmuDirectory().absolutePath
 
         binding.animeNameTv.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.Anime.AnimeDetail)
-                .withInt("animeId", matchData.animeId)
-                .navigation()
+            NAV.go(RouteTable.Anime.AnimeDetail, "animeId", matchData.animeId)
         }
 
         setNegativeListener { dismiss() }

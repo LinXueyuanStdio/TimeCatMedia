@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.ResultReceiver
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 
 /**
  * Created by xyoye on 2020/8/19.
@@ -17,7 +17,7 @@ fun showKeyboard(view: View, flags: Int = 0) {
     view.isFocusableInTouchMode = true
     view.requestFocus()
 
-    (BaseApplication.getAppContext()
+    (BaseApplication.getContext()
         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
         .apply {
             showSoftInput(view, flags, object : ResultReceiver(Handler()) {
@@ -34,7 +34,7 @@ fun showKeyboard(view: View, flags: Int = 0) {
 }
 
 fun hideKeyboard(view: View) {
-    (BaseApplication.getAppContext()
+    (BaseApplication.getContext()
         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
     .hideSoftInputFromWindow(view.windowToken, 0)
 }

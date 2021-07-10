@@ -1,9 +1,10 @@
 package com.xyoye.user_component.ui.fragment.personal
 
+import android.os.Parcelable
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseFragment
 import com.xyoye.common_component.bridge.LoginObserver
 import com.xyoye.common_component.config.RouteTable
@@ -20,7 +21,7 @@ import com.xyoye.user_component.ui.dialog.UserCoverDialog
  * Created by xyoye on 2020/7/28.
  */
 
-@Route(path = RouteTable.User.PersonalFragment)
+@RouterAnno(hostAndPath = RouteTable.User.PersonalFragment)
 class PersonalFragment : BaseFragment<PersonalFragmentViewModel, FragmentPersonalBinding>() {
 
     override fun initViewModel() = ViewModelInit(
@@ -101,8 +102,7 @@ class PersonalFragment : BaseFragment<PersonalFragmentViewModel, FragmentPersona
                 mAttachActivity, dataBinding.userCoverIv, dataBinding.userCoverIv.transitionName
             )
 
-            ARouter.getInstance()
-                .build(RouteTable.User.UserInfo)
+            NAV.raw(RouteTable.User.UserInfo)
                 .withOptionsCompat(options)
                 .navigation(mAttachActivity)
         }
@@ -111,62 +111,42 @@ class PersonalFragment : BaseFragment<PersonalFragmentViewModel, FragmentPersona
             if (!checkLoggedIn())
                 return@setOnClickListener
 
-            ARouter.getInstance()
-                .build(RouteTable.Anime.AnimeFollow)
-                .withParcelable("followData", viewModel.followData)
-                .navigation()
+            NAV.go(RouteTable.Anime.AnimeFollow, "followData", viewModel.followData as Parcelable)
         }
 
         dataBinding.cloudHistoryLl.setOnClickListener {
             if (!checkLoggedIn())
                 return@setOnClickListener
 
-            ARouter.getInstance()
-                .build(RouteTable.Anime.AnimeHistory)
-                .withParcelable("historyData", viewModel.historyData)
-                .navigation()
+            NAV.go(RouteTable.Anime.AnimeHistory, "historyData", viewModel.historyData as Parcelable)
         }
 
         dataBinding.playerSettingLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.User.SettingPlayer)
-                .navigation()
+            NAV.go(RouteTable.User.SettingPlayer)
         }
 
         dataBinding.scanManagerLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.User.ScanManager)
-                .navigation()
+            NAV.go(RouteTable.User.ScanManager)
         }
 
         dataBinding.cacheManagerLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.User.CacheManager)
-                .navigation()
+            NAV.go(RouteTable.User.CacheManager)
         }
 
         dataBinding.commonlyManagerLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.User.CommonManager)
-                .navigation()
+            NAV.go(RouteTable.User.CommonManager)
         }
 
         dataBinding.bilibiliDanmuLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.Local.BiliBiliDanmu)
-                .navigation()
+            NAV.go(RouteTable.Local.BiliBiliDanmu)
         }
 
         dataBinding.shooterSubtitleLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.Local.ShooterSubtitle)
-                .navigation()
+            NAV.go(RouteTable.Local.ShooterSubtitle)
         }
 
         dataBinding.appSettingLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.User.SettingApp)
-                .navigation()
+            NAV.go(RouteTable.User.SettingApp)
         }
     }
 
@@ -175,9 +155,7 @@ class PersonalFragment : BaseFragment<PersonalFragmentViewModel, FragmentPersona
      */
     private fun checkLoggedIn(): Boolean {
         if (!UserConfig.isUserLoggedIn()) {
-            ARouter.getInstance()
-                .build(RouteTable.User.UserLogin)
-                .navigation()
+            NAV.go(RouteTable.User.UserLogin)
             return false
         }
         return true

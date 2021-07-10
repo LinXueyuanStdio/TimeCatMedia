@@ -1,8 +1,8 @@
 package com.xyoye.anime_component.ui.activities.anime_follow
 
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.ActivityAnimeFollowBinding
@@ -12,15 +12,15 @@ import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.extension.gridEmpty
 import com.xyoye.common_component.extension.setData
 import com.xyoye.common_component.extension.toResColor
-import com.xyoye.common_component.utils.view.ItemDecorationDrawable
 import com.xyoye.common_component.utils.dp2px
+import com.xyoye.common_component.utils.view.ItemDecorationDrawable
 import com.xyoye.data_component.data.FollowAnimeData
 
-@Route(path = RouteTable.Anime.AnimeFollow)
+@RouterAnno(hostAndPath = RouteTable.Anime.AnimeFollow)
 class AnimeFollowActivity : BaseActivity<AnimeFollowViewModel, ActivityAnimeFollowBinding>() {
     private val animeAdapter = AnimeAdapter.getAdapter(this)
 
-    @Autowired
+    @AttrValueAutowiredAnno("followData")
     @JvmField
     var followData: FollowAnimeData? = null
 
@@ -33,7 +33,7 @@ class AnimeFollowActivity : BaseActivity<AnimeFollowViewModel, ActivityAnimeFoll
     override fun getLayoutId() = R.layout.activity_anime_follow
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = "我的追番"
 

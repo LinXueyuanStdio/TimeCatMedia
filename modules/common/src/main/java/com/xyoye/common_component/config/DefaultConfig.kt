@@ -1,6 +1,6 @@
 package com.xyoye.common_component.config
 
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 
 /**
  * Created by xyoye on 2020/7/28.
@@ -8,7 +8,7 @@ import com.xyoye.common_component.base.app.BaseApplication
 object DefaultConfig {
 
     val DEFAULT_CACHE_PATH: String by lazy {
-        val context = BaseApplication.getAppContext()
+        val context = BaseApplication.getContext()
         val externalFilesDir = context.getExternalFilesDir(null)
         val externalCacheDir = context.externalCacheDir
         return@lazy (when {

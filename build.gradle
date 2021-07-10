@@ -48,9 +48,7 @@ allprojects {
 
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://dl.bintray.com/umsdk/release" }
-
-        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
-//        maven { url "https://github.com/LinXueyuanStdio/MLang/raw/main/dist/" }
+        maven { url 'https://developer.huawei.com/repo/'}
     }
 }
 
@@ -59,3 +57,4 @@ task clean(type: Delete) {
 }
 
 apply from: "${localGradleDir}/deps.gradle"
+apply from: "${rootDir}/gradle/config.gradle"

@@ -1,8 +1,13 @@
 package com.xyoye.local_component.ui.activities.bilibili_danmu
 
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.ActivityResultCallback
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.RouterAnno
+import com.xiaojinzi.component.bean.ActivityResult
+import com.xiaojinzi.component.impl.RouterErrorResult
+import com.xiaojinzi.component.impl.RouterRequest
+import com.xiaojinzi.component.impl.RouterResult
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.weight.BottomActionDialog
@@ -14,7 +19,7 @@ import com.xyoye.local_component.BR
 import com.xyoye.local_component.R
 import com.xyoye.local_component.databinding.ActivityBilibiliDanmuBinding
 
-@Route(path = RouteTable.Local.BiliBiliDanmu)
+@RouterAnno(hostAndPath = RouteTable.Local.BiliBiliDanmu)
 class BilibiliDanmuActivity : BaseActivity<BilibiliDanmuViewModel, ActivityBilibiliDanmuBinding>() {
     companion object {
         private const val DOWNLOAD_BY_LINK = 1
@@ -75,11 +80,24 @@ class BilibiliDanmuActivity : BaseActivity<BilibiliDanmuViewModel, ActivityBilib
         ) {
             when (it) {
                 DOWNLOAD_BY_LINK -> {
-                    ARouter.getInstance().build(RouteTable.User.WebView)
+                    NAV.raw(RouteTable.User.WebView)
                         .withString("titleText", "选择链接")
                         .withString("url", "http://www.bilibili.com")
                         .withBoolean("isSelectMode", true)
-                        .navigation(this, REQUEST_CODE_SELECT_URL)
+                        .requestCode(REQUEST_CODE_SELECT_URL)
+                        .navigateForResult(object : ActivityResultCallback {
+                            override fun onCancel(originalRequest: RouterRequest?) {
+                            }
+
+                            override fun onError(errorResult: RouterErrorResult) {
+                            }
+
+                            override fun onSuccess(result: RouterResult, t: ActivityResult) {
+                                t.data?.getStringExtra("url_data")?.let {
+                                    viewModel.downloadByUrl(it)
+                                }
+                            }
+                        })
                 }
                 DOWNLOAD_BY_AV_CODE -> {
                     showInputDialog(true)

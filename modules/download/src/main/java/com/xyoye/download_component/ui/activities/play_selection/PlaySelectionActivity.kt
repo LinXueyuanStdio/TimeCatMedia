@@ -1,9 +1,14 @@
 package com.xyoye.download_component.ui.activities.play_selection
 
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import android.os.Parcelable
+import com.timecat.component.router.app.NAV
+import com.timecat.component.router.app.ResultCodeCallback
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
+import com.xiaojinzi.component.impl.RouterErrorResult
+import com.xiaojinzi.component.impl.RouterRequest
+import com.xiaojinzi.component.impl.RouterResult
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.utils.getFileName
@@ -15,26 +20,26 @@ import com.xyoye.download_component.databinding.ActivityPlaySelectionBinding
 import com.xyoye.download_component.ui.dialog.PlaySelectionDialog
 import java.net.URLDecoder
 
-@Route(path = RouteTable.Download.PlaySelection)
+@RouterAnno(hostAndPath = RouteTable.Download.PlaySelection)
 class PlaySelectionActivity : BaseActivity<PlaySelectionViewModel, ActivityPlaySelectionBinding>() {
 
     companion object {
         private const val PLAY_REQUEST_CODE = 1001
     }
 
-    @Autowired
+    @AttrValueAutowiredAnno("torrentPath")
     @JvmField
     var torrentPath: String? = ""
 
-    @Autowired
+    @AttrValueAutowiredAnno("torrentTitle")
     @JvmField
     var torrentTitle: String? = ""
 
-    @Autowired
+    @AttrValueAutowiredAnno("magnetLink")
     @JvmField
     var magnetLink: String? = ""
 
-    @Autowired
+    @AttrValueAutowiredAnno("torrentFileIndex")
     @JvmField
     var torrentFileIndex: Int = -1
 
@@ -47,7 +52,7 @@ class PlaySelectionActivity : BaseActivity<PlaySelectionViewModel, ActivityPlayS
     override fun getLayoutId() = R.layout.activity_play_selection
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
         title = ""
 
         if (torrentPath.isNullOrEmpty() && magnetLink.isNullOrEmpty()) {
@@ -67,10 +72,7 @@ class PlaySelectionActivity : BaseActivity<PlaySelectionViewModel, ActivityPlayS
         }
 
         viewModel.playLiveData.observe(this) {
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
-                .withParcelable("playParams", it)
-                .navigation(this, PLAY_REQUEST_CODE)
+            NAV.go(RouteTable.Player.Player, "playParams", it as Parcelable)
         }
     }
 
@@ -122,10 +124,23 @@ class PlaySelectionActivity : BaseActivity<PlaySelectionViewModel, ActivityPlayS
             torrentTitle
         )
 
-        ARouter.getInstance()
-            .build(RouteTable.Player.Player)
+        NAV.raw(RouteTable.Player.Player)
             .withParcelable("playParams", playParams)
             .withString("searchKeyword", torrentTitle)
-            .navigation(this, PLAY_REQUEST_CODE)
+            .requestCode(PLAY_REQUEST_CODE)
+            .forwardForResultCode(object : ResultCodeCallback {
+                override fun onCancel(originalRequest: RouterRequest?) {
+                }
+
+                override fun onError(errorResult: RouterErrorResult) {
+                }
+
+                override fun onSuccess(result: RouterResult, requestCode: Int) {
+                    if (requestCode == PLAY_REQUEST_CODE) {
+                        viewModel.removePlayTask()
+                        finish()
+                    }
+                }
+            })
     }
 }

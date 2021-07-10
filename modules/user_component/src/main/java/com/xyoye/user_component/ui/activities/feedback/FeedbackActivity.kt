@@ -2,7 +2,7 @@ package com.xyoye.user_component.ui.activities.feedback
 
 import android.content.Intent
 import android.os.Build
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.adapter.initData
@@ -19,7 +19,7 @@ import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivityFeedbackBinding
 import com.xyoye.user_component.databinding.ItemCommonQuestionBinding
 
-@Route(path = RouteTable.User.Feedback)
+@RouterAnno(hostAndPath = RouteTable.User.Feedback)
 class FeedbackActivity : BaseActivity<FeedbackViewModel, ActivityFeedbackBinding>() {
 
     override fun initViewModel() =

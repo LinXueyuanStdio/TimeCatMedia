@@ -1,11 +1,17 @@
 package com.xyoye.player_component.ui.activities.player_interceptor
 
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
+import com.timecat.component.router.app.ActivityResultCallback
+import com.timecat.component.router.app.ForwardCallback
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
+import com.xiaojinzi.component.bean.ActivityResult
+import com.xiaojinzi.component.impl.RouterErrorResult
+import com.xiaojinzi.component.impl.RouterRequest
+import com.xiaojinzi.component.impl.RouterResult
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.DanmuConfig
 import com.xyoye.common_component.config.RouteTable
@@ -17,19 +23,19 @@ import com.xyoye.player_component.BR
 import com.xyoye.player_component.R
 import com.xyoye.player_component.databinding.ActivityPlayerInterceptorBinding
 
-@Route(path = RouteTable.Player.Player)
+@RouterAnno(hostAndPath = RouteTable.Player.Player)
 class PlayerInterceptorActivity : BaseActivity<PlayerInterceptorViewModel, ActivityPlayerInterceptorBinding>() {
 
-    companion object{
+    companion object {
         private const val REQUEST_CODE_BIND_DANMU = 1001
     }
 
-    @Autowired
+    @AttrValueAutowiredAnno("playParams")
     @JvmField
-    var playParams : PlayParams? = null
+    var playParams: PlayParams? = null
 
+    @AttrValueAutowiredAnno("searchKeyword")
     @JvmField
-    @Autowired
     var searchKeyword: String? = null
 
     override fun initViewModel() =
@@ -48,9 +54,9 @@ class PlayerInterceptorActivity : BaseActivity<PlayerInterceptorViewModel, Activ
     }
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
-        if (playParams == null){
+        if (playParams == null) {
             ToastCenter.showError("播放参数错误，无法播放视频")
             finish()
             return
@@ -59,20 +65,37 @@ class PlayerInterceptorActivity : BaseActivity<PlayerInterceptorViewModel, Activ
         val danmuPath = playParams?.danmuPath
 
         //本地视频或已有弹幕，不提示选择弹幕
-        if (playParams!!.mediaType == MediaType.LOCAL_STORAGE || danmuPath != null){
+        if (playParams!!.mediaType == MediaType.LOCAL_STORAGE || danmuPath != null) {
             openPlayer(playParams!!)
             return
         }
 
         //不展示弹窗
-        if (!DanmuConfig.isShowDialogBeforePlay()){
-            if (DanmuConfig.isAutoLaunchDanmuBeforePlay()){
+        if (!DanmuConfig.isShowDialogBeforePlay()) {
+            if (DanmuConfig.isAutoLaunchDanmuBeforePlay()) {
                 //自动进入选择弹幕页面
-                ARouter.getInstance()
-                    .build(RouteTable.Local.BindDanmu)
+                NAV.raw(RouteTable.Local.BindDanmu)
                     .withString("videoName", playParams!!.videoTitle)
                     .withString("searchKeyword", searchKeyword)
-                    .navigation(this@PlayerInterceptorActivity, REQUEST_CODE_BIND_DANMU)
+                    .requestCode(REQUEST_CODE_BIND_DANMU)
+                    .forwardForResult(object : ActivityResultCallback {
+                        override fun onCancel(originalRequest: RouterRequest?) {
+                        }
+
+                        override fun onError(errorResult: RouterErrorResult) {
+                        }
+
+                        override fun onSuccess(result: RouterResult, t: ActivityResult) {
+                            if (t.resultCode == RESULT_OK) {
+                                val danmuPath = t.data?.getStringExtra("danmu_path")
+                                val episodeId = t.data?.getIntExtra("episode_id", 0) ?: 0
+                                playParams!!.danmuPath = danmuPath
+                                playParams!!.episodeId = episodeId
+                            }
+                            //绑定弹幕后自动播放
+                            openPlayer(playParams!!)
+                        }
+                    })
             } else {
                 //自动进入播放器页面
                 openPlayer(playParams!!)
@@ -84,25 +107,42 @@ class PlayerInterceptorActivity : BaseActivity<PlayerInterceptorViewModel, Activ
             cancelable = false
             touchCancelable = false
             content = "检测到视频未绑定弹幕，是否需要绑定弹幕？"
-            addPositive("绑定弹幕"){
+            addPositive("绑定弹幕") {
                 it.dismiss()
 
                 //不再展示弹窗，则将当前操作记录为默认行为
-                if (!DanmuConfig.isShowDialogBeforePlay()){
+                if (!DanmuConfig.isShowDialogBeforePlay()) {
                     DanmuConfig.putAutoLaunchDanmuBeforePlay(true)
                 }
 
-                ARouter.getInstance()
-                    .build(RouteTable.Local.BindDanmu)
+                NAV.raw(RouteTable.Local.BindDanmu)
                     .withString("videoName", playParams!!.videoTitle)
                     .withString("searchKeyword", searchKeyword)
-                    .navigation(this@PlayerInterceptorActivity, REQUEST_CODE_BIND_DANMU)
+                    .requestCode(REQUEST_CODE_BIND_DANMU)
+                    .forwardForResult(object : ActivityResultCallback {
+                        override fun onCancel(originalRequest: RouterRequest?) {
+                        }
+
+                        override fun onError(errorResult: RouterErrorResult) {
+                        }
+
+                        override fun onSuccess(result: RouterResult, t: ActivityResult) {
+                            if (t.resultCode == RESULT_OK) {
+                                val danmuPath = t.data?.getStringExtra("danmu_path")
+                                val episodeId = t.data?.getIntExtra("episode_id", 0) ?: 0
+                                playParams!!.danmuPath = danmuPath
+                                playParams!!.episodeId = episodeId
+                            }
+                            //绑定弹幕后自动播放
+                            openPlayer(playParams!!)
+                        }
+                    })
             }
-            addNegative("直接播放"){
+            addNegative("直接播放") {
                 it.dismiss()
 
                 //不再展示弹窗，则将当前操作记录为默认行为
-                if (!DanmuConfig.isShowDialogBeforePlay()){
+                if (!DanmuConfig.isShowDialogBeforePlay()) {
                     DanmuConfig.putAutoLaunchDanmuBeforePlay(false)
                 }
 
@@ -115,8 +155,8 @@ class PlayerInterceptorActivity : BaseActivity<PlayerInterceptorViewModel, Activ
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_BIND_DANMU){
-            if (resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CODE_BIND_DANMU) {
+            if (resultCode == RESULT_OK) {
                 val danmuPath = data?.getStringExtra("danmu_path")
                 val episodeId = data?.getIntExtra("episode_id", 0) ?: 0
                 playParams!!.danmuPath = danmuPath
@@ -128,11 +168,22 @@ class PlayerInterceptorActivity : BaseActivity<PlayerInterceptorViewModel, Activ
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun openPlayer(playParams: PlayParams){
-        ARouter.getInstance()
-            .build(RouteTable.Player.PlayerCenter)
+    private fun openPlayer(playParams: PlayParams) {
+        NAV.raw(RouteTable.Player.PlayerCenter)
             .withParcelable("playParams", playParams)
-            .navigation()
-        finish()
+            .forward(object : ForwardCallback {
+                override fun onError(errorResult: RouterErrorResult) {
+                }
+
+                override fun onCancel(originalRequest: RouterRequest?) {
+                }
+
+                override fun onSuccess(result: RouterResult) {
+                    finish()
+                }
+
+                override fun onEvent(successResult: RouterResult?, errorResult: RouterErrorResult?) {
+                }
+            })
     }
 }

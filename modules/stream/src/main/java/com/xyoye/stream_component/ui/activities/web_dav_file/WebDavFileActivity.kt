@@ -1,10 +1,11 @@
 package com.xyoye.stream_component.ui.activities.web_dav_file
 
+import android.os.Parcelable
 import android.view.KeyEvent
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.thegrizzlylabs.sardineandroid.DavResource
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity
@@ -21,10 +22,10 @@ import com.xyoye.stream_component.R
 import com.xyoye.stream_component.databinding.ActivityWebDavFileBinding
 import com.xyoye.stream_component.databinding.ItemStorageFolderBinding
 
-@Route(path = RouteTable.Stream.WebDavFile)
+@RouterAnno(hostAndPath = RouteTable.Stream.WebDavFile)
 class WebDavFileActivity : BaseActivity<WebDavFileViewModel, ActivityWebDavFileBinding>() {
 
-    @Autowired
+    @AttrValueAutowiredAnno("webDavData")
     @JvmField
     var webDavData: MediaLibraryEntity? = null
 
@@ -37,7 +38,7 @@ class WebDavFileActivity : BaseActivity<WebDavFileViewModel, ActivityWebDavFileB
     override fun getLayoutId() = R.layout.activity_web_dav_file
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         if (webDavData == null) {
             ToastCenter.showError("媒体库数据错误，请重试")
@@ -55,10 +56,7 @@ class WebDavFileActivity : BaseActivity<WebDavFileViewModel, ActivityWebDavFileB
             dataBinding.fileRv.setData(it)
         }
         viewModel.openVideoLiveData.observe(this) {
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
-                .withParcelable("playParams", it)
-                .navigation()
+            NAV.go(RouteTable.Player.Player, "playParams", it as Parcelable)
         }
         viewModel.listStorageRoot(webDavData!!)
     }

@@ -1,16 +1,17 @@
 package com.xyoye.local_component.ui.fragment.media
 
 import android.Manifest
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import android.os.Parcelable
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseFragment
 import com.xyoye.common_component.config.RouteTable
-import com.xyoye.common_component.permission.requestPermissions
 import com.xyoye.common_component.extension.setAutoSizeText
 import com.xyoye.common_component.extension.setData
 import com.xyoye.common_component.extension.vertical
+import com.xyoye.common_component.permission.requestPermissions
 import com.xyoye.common_component.weight.BottomActionDialog
 import com.xyoye.common_component.weight.ToastCenter
 import com.xyoye.common_component.weight.dialog.CommonDialog
@@ -23,12 +24,13 @@ import com.xyoye.local_component.R
 import com.xyoye.local_component.databinding.FragmentMediaBinding
 import com.xyoye.local_component.databinding.ItemMediaLibraryBinding
 import com.xyoye.local_component.utils.MediaTypeUtil
+import java.io.Serializable
 
 /**
  * Created by xyoye on 2020/7/27.
  */
 
-@Route(path = RouteTable.Local.MediaFragment)
+@RouterAnno(hostAndPath = RouteTable.Local.MediaFragment)
 class MediaFragment : BaseFragment<MediaViewModel, FragmentMediaBinding>() {
     companion object {
         private const val ACTION_ADD_FTP_LIBRARY = 1
@@ -147,9 +149,7 @@ class MediaFragment : BaseFragment<MediaViewModel, FragmentMediaBinding>() {
                 else -> throw IllegalArgumentException()
             }
 
-            ARouter.getInstance()
-                .build(routePath)
-                .navigation()
+            NAV.go(routePath)
 
             return@BottomActionDialog true
         }.show(this)
@@ -158,39 +158,22 @@ class MediaFragment : BaseFragment<MediaViewModel, FragmentMediaBinding>() {
     private fun launchMediaStorage(data: MediaLibraryEntity) {
         when (data.mediaType) {
             MediaType.LOCAL_STORAGE -> {
-                ARouter.getInstance()
-                    .build(RouteTable.Local.LocalMediaStorage)
-                    .navigation()
+                NAV.go(RouteTable.Local.LocalMediaStorage)
             }
             MediaType.STREAM_LINK, MediaType.MAGNET_LINK, MediaType.OTHER_STORAGE -> {
-                ARouter.getInstance()
-                    .build(RouteTable.Local.PlayHistory)
-                    .withSerializable("typeValue", data.mediaType.value)
-                    .navigation()
+                NAV.go(RouteTable.Local.PlayHistory, "typeValue", data.mediaType.value as Serializable)
             }
             MediaType.WEBDAV_SERVER -> {
-                ARouter.getInstance()
-                    .build(RouteTable.Stream.WebDavFile)
-                    .withParcelable("webDavData", data)
-                    .navigation()
+                NAV.go(RouteTable.Stream.WebDavFile, "webDavData", data as Parcelable)
             }
             MediaType.FTP_SERVER -> {
-                ARouter.getInstance()
-                    .build(RouteTable.Stream.FTPFile)
-                    .withParcelable("ftpData", data)
-                    .navigation()
+                NAV.go(RouteTable.Stream.FTPFile, "ftpData", data as Parcelable)
             }
             MediaType.SMB_SERVER -> {
-                ARouter.getInstance()
-                    .build(RouteTable.Stream.SmbFile)
-                    .withParcelable("smbData", data)
-                    .navigation()
+                NAV.go(RouteTable.Stream.SmbFile, "smbData", data as Parcelable)
             }
             MediaType.REMOTE_STORAGE -> {
-                ARouter.getInstance()
-                    .build(RouteTable.Stream.RemoteFile)
-                    .withParcelable("remoteData", data)
-                    .navigation()
+                NAV.go(RouteTable.Stream.RemoteFile, "remoteData", data as Parcelable)
             }
         }
     }
@@ -219,10 +202,7 @@ class MediaFragment : BaseFragment<MediaViewModel, FragmentMediaBinding>() {
                     MediaType.REMOTE_STORAGE -> RouteTable.Stream.RemoteLogin
                     else -> throw IllegalArgumentException()
                 }
-                ARouter.getInstance()
-                    .build(routePath)
-                    .withParcelable("editData", data)
-                    .navigation()
+                NAV.go(routePath, "editData", data as Parcelable)
             } else if (it == ACTION_DELETE_STORAGE) {
                 showDeleteStorageDialog(data)
             }

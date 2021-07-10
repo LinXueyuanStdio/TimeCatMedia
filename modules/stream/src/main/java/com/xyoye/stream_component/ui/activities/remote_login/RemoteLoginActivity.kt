@@ -2,9 +2,9 @@ package com.xyoye.stream_component.ui.activities.remote_login
 
 import android.Manifest
 import android.content.Intent
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.permission.requestPermissions
@@ -15,13 +15,13 @@ import com.xyoye.stream_component.R
 import com.xyoye.stream_component.databinding.ActivityRemoteLoginBinding
 import com.xyoye.stream_component.ui.dialog.RemoteLoginDialog
 
-@Route(path = RouteTable.Stream.RemoteLogin)
+@RouterAnno(hostAndPath = RouteTable.Stream.RemoteLogin)
 class RemoteLoginActivity : BaseActivity<RemoteLoginViewModel, ActivityRemoteLoginBinding>() {
     companion object {
         private const val REQUEST_CODE_REMOTE_SCAN = 1001
     }
 
-    @Autowired
+    @AttrValueAutowiredAnno("editData")
     @JvmField
     var editData: MediaLibraryEntity? = null
 
@@ -36,7 +36,7 @@ class RemoteLoginActivity : BaseActivity<RemoteLoginViewModel, ActivityRemoteLog
     override fun getLayoutId() = R.layout.activity_remote_login
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         loginDialog = RemoteLoginDialog(
             editData,

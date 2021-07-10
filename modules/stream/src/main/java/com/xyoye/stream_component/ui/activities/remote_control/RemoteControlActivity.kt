@@ -4,14 +4,14 @@ import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.stream_component.BR
 import com.xyoye.stream_component.R
 import com.xyoye.stream_component.databinding.ActivityRemoteControlBinding
 
-@Route(path = RouteTable.Stream.RemoteControl)
+@RouterAnno(hostAndPath = RouteTable.Stream.RemoteControl)
 class RemoteControlActivity : BaseActivity<RemoteControlViewModel, ActivityRemoteControlBinding>() {
 
     override fun initViewModel() =

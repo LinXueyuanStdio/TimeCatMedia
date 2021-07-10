@@ -4,7 +4,7 @@ import android.content.res.AssetManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.xyoye.common_component.base.BaseViewModel
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.utils.IOUtils
 import com.xyoye.common_component.utils.getFileNameNoExtension
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ class LicenseViewModel : BaseViewModel() {
                 showLoading()
 
                 val licenses = mutableListOf<Pair<String, String>>()
-                val assets = BaseApplication.getAppContext().assets
+                val assets = BaseApplication.getContext().assets
                 assets.list("license")?.forEach {
                     getLicense(assets, it)?.let { license ->
                         licenses.add(license)

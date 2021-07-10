@@ -11,9 +11,9 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.view.isGone
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.extension.toResColor
@@ -24,19 +24,19 @@ import com.xyoye.user_component.databinding.ActivityWebViewBinding
 import com.xyoye.user_component.ui.weight.WebViewProgress
 
 @SuppressLint("SetJavaScriptEnabled")
-@Route(path = RouteTable.User.WebView)
+@RouterAnno(hostAndPath = RouteTable.User.WebView)
 class WebViewActivity : BaseActivity<WebViewViewModel, ActivityWebViewBinding>() {
 
+    @AttrValueAutowiredAnno("titleText")
     @JvmField
-    @Autowired
     var titleText: String = ""
 
+    @AttrValueAutowiredAnno("url")
     @JvmField
-    @Autowired
     var url: String? = ""
 
+    @AttrValueAutowiredAnno("isSelectMode")
     @JvmField
-    @Autowired
     var isSelectMode: Boolean = false
 
     private lateinit var progressView: WebViewProgress
@@ -50,7 +50,7 @@ class WebViewActivity : BaseActivity<WebViewViewModel, ActivityWebViewBinding>()
     override fun getLayoutId() = R.layout.activity_web_view
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = titleText
 

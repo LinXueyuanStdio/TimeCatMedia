@@ -2,7 +2,7 @@ package com.xyoye.anime_component.ui.fragment.anime_intro
 
 import android.os.Bundle
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.FragmentAnimeIntroBinding
@@ -50,8 +50,7 @@ class AnimeIntroFragment : BaseFragment<AnimeIntroFragmentViewModel, FragmentAni
                     initView { data, _, _ ->
                         itemBinding.tagTv.text = data.name
                         itemBinding.tagTv.setOnClickListener {
-                            ARouter.getInstance()
-                                .build(RouteTable.Anime.AnimeTag)
+                            NAV.raw(RouteTable.Anime.AnimeTag)
                                 .withInt("tagId", data.id)
                                 .withString("tagName", data.name)
                                 .navigation()

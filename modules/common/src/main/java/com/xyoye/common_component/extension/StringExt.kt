@@ -3,7 +3,7 @@ package com.xyoye.common_component.extension
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import java.io.File
 import java.net.URLDecoder
 import java.nio.charset.Charset
@@ -19,7 +19,7 @@ fun String?.toFile() : File? {
 }
 
 fun String.addToClipboard(){
-    val clipboard = BaseApplication.getAppContext()
+    val clipboard = BaseApplication.getContext()
         .getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clipData = ClipData.newPlainText("data", this)
     clipboard.setPrimaryClip(clipData)

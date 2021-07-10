@@ -1,10 +1,9 @@
 package com.xyoye.user_component.ui.activities.switch_themes
 
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.AppConfig
 import com.xyoye.common_component.config.RouteTable
@@ -14,7 +13,7 @@ import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivitySwitchThemesBinding
 import kotlin.system.exitProcess
 
-@Route(path = RouteTable.User.SwitchTheme)
+@RouterAnno(hostAndPath = RouteTable.User.SwitchTheme)
 class SwitchThemesActivity : BaseActivity<SwitchThemesViewModel, ActivitySwitchThemesBinding>() {
 
     override fun initViewModel() =

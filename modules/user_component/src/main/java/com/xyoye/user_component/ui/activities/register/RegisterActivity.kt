@@ -1,10 +1,8 @@
 package com.xyoye.user_component.ui.activities.register
 
-import android.app.Activity
-import android.content.Intent
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.utils.showKeyboard
@@ -12,7 +10,7 @@ import com.xyoye.user_component.BR
 import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivityRegisterBinding
 
-@Route(path = RouteTable.User.UserRegister)
+@RouterAnno(hostAndPath = RouteTable.User.UserRegister)
 class RegisterActivity : BaseActivity<RegisterViewModel, ActivityRegisterBinding>() {
 
     override fun initViewModel() =

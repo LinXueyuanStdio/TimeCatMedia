@@ -1,13 +1,14 @@
 package com.xyoye.stream_component.ui.activities.remote_file
 
+import android.os.Parcelable
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity
@@ -26,10 +27,10 @@ import com.xyoye.stream_component.databinding.ActivityRemoteFileBinding
 import com.xyoye.stream_component.databinding.ItemRemoteFolderBinding
 import com.xyoye.stream_component.databinding.ItemRemoteVideoBinding
 
-@Route(path = RouteTable.Stream.RemoteFile)
+@RouterAnno(hostAndPath = RouteTable.Stream.RemoteFile)
 class RemoteFileActivity : BaseActivity<RemoteFileViewModel, ActivityRemoteFileBinding>() {
 
-    @Autowired
+    @AttrValueAutowiredAnno("remoteData")
     @JvmField
     var remoteData: MediaLibraryEntity? = null
 
@@ -42,7 +43,7 @@ class RemoteFileActivity : BaseActivity<RemoteFileViewModel, ActivityRemoteFileB
     override fun getLayoutId() = R.layout.activity_remote_file
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         if (remoteData == null) {
             ToastCenter.showError("媒体库数据错误，请重试")
@@ -72,10 +73,7 @@ class RemoteFileActivity : BaseActivity<RemoteFileViewModel, ActivityRemoteFileB
         }
 
         viewModel.playVideoLiveData.observe(this) {
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
-                .withParcelable("playParams", it)
-                .navigation()
+            NAV.go(RouteTable.Player.Player, "playParams", it as Parcelable)
         }
 
         dataBinding.refreshLayout.setColorSchemeResources(R.color.text_theme)
@@ -93,9 +91,7 @@ class RemoteFileActivity : BaseActivity<RemoteFileViewModel, ActivityRemoteFileB
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.item_remote_control) {
-            ARouter.getInstance()
-                .build(RouteTable.Stream.RemoteControl)
-                .navigation()
+            NAV.go(RouteTable.Stream.RemoteControl)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -143,7 +139,7 @@ class RemoteFileActivity : BaseActivity<RemoteFileViewModel, ActivityRemoteFileB
                             val videoName = data.EpisodeTitle ?: data.Name
                             titleTv.setAutoSizeText(videoName)
                             durationTv.isGone = data.Duration == null
-                            if (data.Duration != null){
+                            if (data.Duration != null) {
                                 durationTv.text = formatDuration(data.Duration!! * 1000)
                             }
                             val coverUrl = RemoteHelper.getInstance().buildImageUrl(data.Hash)

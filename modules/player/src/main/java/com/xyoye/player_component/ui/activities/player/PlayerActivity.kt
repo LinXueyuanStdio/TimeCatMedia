@@ -6,11 +6,11 @@ import android.content.IntentFilter
 import android.media.AudioManager
 import android.view.KeyEvent
 import androidx.appcompat.app.AlertDialog
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.DanmuConfig
 import com.xyoye.common_component.config.PlayerConfig
@@ -30,18 +30,20 @@ import com.xyoye.player_component.R
 import com.xyoye.player_component.databinding.ActivityPlayerBinding
 import java.io.File
 
-@Route(path = RouteTable.Player.PlayerCenter)
+@RouterAnno(hostAndPath = RouteTable.Player.PlayerCenter)
 class PlayerActivity : BaseActivity<PlayerViewModel, ActivityPlayerBinding>(),
     PlayerReceiverListener {
 
-    @Autowired
+    @AttrValueAutowiredAnno("playParams")
     @JvmField
     var playParams: PlayParams? = null
 
     //电量广播
     private lateinit var batteryReceiver: BatteryBroadcastReceiver
+
     //锁屏广播
     private lateinit var screenLockReceiver: ScreenBroadcastReceiver
+
     //耳机广播
     private lateinit var headsetReceiver: HeadsetBroadcastReceiver
 
@@ -63,7 +65,7 @@ class PlayerActivity : BaseActivity<PlayerViewModel, ActivityPlayerBinding>(),
     }
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         if (!checkPlayParams())
             return
@@ -148,7 +150,7 @@ class PlayerActivity : BaseActivity<PlayerViewModel, ActivityPlayerBinding>(),
             }
             //绑定资源
             observerBindSource { sourcePath, isSubtitle ->
-                if (isSubtitle){
+                if (isSubtitle) {
                     params.subtitlePath = sourcePath
                 } else {
                     params.danmuPath = sourcePath
@@ -162,7 +164,7 @@ class PlayerActivity : BaseActivity<PlayerViewModel, ActivityPlayerBinding>(),
             //弹幕屏蔽
             observerDanmuBlock(
                 cloudBlock = viewModel.cloudDanmuBlockLiveData,
-                add = {keyword, isRegex -> viewModel.addDanmuBlock(keyword, isRegex) },
+                add = { keyword, isRegex -> viewModel.addDanmuBlock(keyword, isRegex) },
                 remove = { id -> viewModel.removeDanmuBlock(id) },
                 queryAll = { viewModel.localDanmuBlockLiveData }
             )
@@ -258,9 +260,7 @@ class PlayerActivity : BaseActivity<PlayerViewModel, ActivityPlayerBinding>(),
             .setMessage("播放失败，请尝试更改播放器设置，或者切换其它播放内核")
             .setPositiveButton("播放器设置") { dialog, _ ->
                 dialog.dismiss()
-                ARouter.getInstance()
-                    .build(RouteTable.User.SettingPlayer)
-                    .navigation()
+                NAV.go(RouteTable.User.SettingPlayer)
                 this@PlayerActivity.finish()
             }
             .setNegativeButton("退出播放") { dialog, _ ->

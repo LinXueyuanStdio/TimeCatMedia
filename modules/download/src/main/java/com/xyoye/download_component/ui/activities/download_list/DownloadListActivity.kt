@@ -1,8 +1,8 @@
 package com.xyoye.download_component.ui.activities.download_list
 
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity
@@ -23,7 +23,7 @@ import com.xyoye.download_component.databinding.ItemDownloadBinding
 import com.xyoye.download_component.frostwire.download.TorrentDownloader
 import com.xyoye.download_component.frostwire.utils.TransferState
 
-@Route(path = RouteTable.Download.DownloadList)
+@RouterAnno(hostAndPath = RouteTable.Download.DownloadList)
 class DownloadListActivity : BaseActivity<DownloadListViewModel, ActivityDownloadListBinding>() {
     companion object {
         private const val ACTION_COPY_MAGNET = 1
@@ -37,11 +37,11 @@ class DownloadListActivity : BaseActivity<DownloadListViewModel, ActivityDownloa
         private const val ACTION_DELETE_ALL = 9
     }
 
-    @Autowired
+    @AttrValueAutowiredAnno("torrentPath")
     @JvmField
     var torrentPath: String? = null
 
-    @Autowired
+    @AttrValueAutowiredAnno("selection")
     @JvmField
     var selection: ByteArray? = null
 
@@ -54,7 +54,7 @@ class DownloadListActivity : BaseActivity<DownloadListViewModel, ActivityDownloa
     override fun getLayoutId() = R.layout.activity_download_list
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = "下载管理"
 
@@ -190,9 +190,6 @@ class DownloadListActivity : BaseActivity<DownloadListViewModel, ActivityDownloa
     }
 
     private fun showDownloaderDetail(infoHash: String) {
-        ARouter.getInstance()
-            .build(RouteTable.Download.DownloadDetail)
-            .withString("infoHash", infoHash)
-            .navigation()
+        NAV.go(RouteTable.Download.DownloadDetail, "infoHash", infoHash)
     }
 }

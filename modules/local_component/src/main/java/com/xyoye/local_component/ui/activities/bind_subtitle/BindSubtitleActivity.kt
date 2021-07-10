@@ -5,9 +5,9 @@ import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addEmptyView
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
@@ -39,11 +39,11 @@ import com.xyoye.local_component.ui.dialog.SubtitleFileListDialog
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@Route(path = RouteTable.Local.BindSubtitle)
+@RouterAnno(hostAndPath = RouteTable.Local.BindSubtitle)
 class BindSubtitleActivity : BaseActivity<BindSubtitleViewModel, ActivityBindSubtitleBinding>() {
 
+    @AttrValueAutowiredAnno("videoPath")
     @JvmField
-    @Autowired
     var videoPath: String? = null
 
     private lateinit var subtitleSearchAdapter: BasePagingAdapter<SubtitleSearchData>
@@ -57,7 +57,7 @@ class BindSubtitleActivity : BaseActivity<BindSubtitleViewModel, ActivityBindSub
     override fun getLayoutId() = R.layout.activity_bind_subtitle
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = "选绑字幕"
 
@@ -198,9 +198,7 @@ class BindSubtitleActivity : BaseActivity<BindSubtitleViewModel, ActivityBindSub
             content = "密钥为空无法搜索\n\n请到 个人中心->射手(伪)字幕下载 中设置API密钥"
             addPositive("前往设置") {
                 it.dismiss()
-                ARouter.getInstance()
-                    .build(RouteTable.Local.ShooterSubtitle)
-                    .navigation()
+                NAV.go(RouteTable.Local.ShooterSubtitle)
             }
             addNegative()
             build()

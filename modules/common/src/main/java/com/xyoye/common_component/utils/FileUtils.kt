@@ -3,7 +3,7 @@ package com.xyoye.common_component.utils
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Build
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.extension.isValid
 import java.io.File
 import java.io.FileNotFoundException
@@ -100,7 +100,7 @@ fun isFileExist(filePath: String?): Boolean {
     if (Build.VERSION.SDK_INT >= 29) {
         try {
             val uri = Uri.parse(filePath)
-            val cr: ContentResolver = BaseApplication.getAppContext().contentResolver
+            val cr: ContentResolver = BaseApplication.getContext().contentResolver
             val afd = cr.openAssetFileDescriptor(uri, "r") ?: return false
             try {
                 afd.close()

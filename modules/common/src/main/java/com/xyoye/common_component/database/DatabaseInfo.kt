@@ -11,7 +11,8 @@ import com.xyoye.data_component.entity.*
 
 @Database(
     entities =
-    [VideoEntity::class,
+    [
+        VideoEntity::class,
         MagnetSearchHistoryEntity::class,
         AnimeSearchHistoryEntity::class,
         MagnetScreenEntity::class,

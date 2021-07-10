@@ -4,7 +4,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.paging.BasePagingAdapter
 import com.xyoye.common_component.adapter.paging.PagingFooterAdapter
 import com.xyoye.common_component.adapter.paging.addItem
@@ -28,7 +28,7 @@ import com.xyoye.local_component.ui.dialog.SubtitleFileListDialog
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@Route(path = RouteTable.Local.ShooterSubtitle)
+@RouterAnno(hostAndPath = RouteTable.Local.ShooterSubtitle)
 class ShooterSubtitleActivity :
     BaseActivity<ShooterSubtitleViewModel, ActivityShooterSubtitleBinding>() {
 

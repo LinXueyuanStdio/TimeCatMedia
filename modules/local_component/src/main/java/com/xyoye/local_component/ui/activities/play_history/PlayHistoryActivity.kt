@@ -3,13 +3,14 @@ package com.xyoye.local_component.ui.activities.play_history
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addEmptyView
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
@@ -32,10 +33,10 @@ import com.xyoye.local_component.ui.dialog.StreamLinkDialog
 import com.xyoye.local_component.utils.MediaTypeUtil
 import java.io.File
 
-@Route(path = RouteTable.Local.PlayHistory)
+@RouterAnno(hostAndPath = RouteTable.Local.PlayHistory)
 class PlayHistoryActivity : BaseActivity<PlayHistoryViewModel, ActivityPlayHistoryBinding>() {
 
-    @Autowired
+    @AttrValueAutowiredAnno("typeValue")
     @JvmField
     var typeValue: String = MediaType.LOCAL_STORAGE.value
 
@@ -53,7 +54,7 @@ class PlayHistoryActivity : BaseActivity<PlayHistoryViewModel, ActivityPlayHisto
     override fun getLayoutId() = R.layout.activity_play_history
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         mediaType = MediaType.fromValue(typeValue)
 
@@ -228,28 +229,19 @@ class PlayHistoryActivity : BaseActivity<PlayHistoryViewModel, ActivityPlayHisto
             playParams.header = header
 
             //串流播放
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
-                .withParcelable("playParams", playParams)
-                .navigation()
+            NAV.go(RouteTable.Player.Player, "playParams", playParams as Parcelable)
         }.show(this)
     }
 
     private fun showMagnetDialog() {
         MagnetPlayDialog(magnetCallback = {
             //磁链选择播放
-            ARouter.getInstance()
-                .build(RouteTable.Download.PlaySelection)
-                .withString("magnetLink", it)
-                .navigation()
+            NAV.go(RouteTable.Download.PlaySelection, "magnetLink", it)
         }, torrentCallback = {
             //选择本地种子文件
             FileManagerDialog(FileManagerAction.ACTION_SELECT_TORRENT) {
                 //磁链选择播放
-                ARouter.getInstance()
-                    .build(RouteTable.Download.PlaySelection)
-                    .withString("torrentPath", it)
-                    .navigation()
+                NAV.go(RouteTable.Download.PlaySelection, "torrentPath", it)
             }.show(this)
         }).show(this)
     }
@@ -257,8 +249,7 @@ class PlayHistoryActivity : BaseActivity<PlayHistoryViewModel, ActivityPlayHisto
     private fun play(entity: PlayHistoryEntity) {
         //磁链直接播放
         if (entity.mediaType == MediaType.MAGNET_LINK) {
-            ARouter.getInstance()
-                .build(RouteTable.Download.PlaySelection)
+            NAV.raw(RouteTable.Download.PlaySelection)
                 .withString("torrentPath", entity.torrentPath)
                 .withString("torrentTitle", entity.torrentTitle)
                 .withInt("torrentFileIndex", entity.torrentFileIndex)
@@ -277,10 +268,7 @@ class PlayHistoryActivity : BaseActivity<PlayHistoryViewModel, ActivityPlayHisto
             entity.mediaType,
             StreamHeaderUtil.string2Header(entity.header)
         )
-        ARouter.getInstance()
-            .build(RouteTable.Player.Player)
-            .withParcelable("playParams", playParams)
-            .navigation()
+        NAV.go(RouteTable.Player.Player, "playParams", playParams as Parcelable)
     }
 
     private fun isHistoryInvalid(entity: PlayHistoryEntity): Boolean {

@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.xyoye.common_component.base.BaseViewModel
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.utils.*
 import com.xyoye.data_component.enums.CacheType
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import java.io.File
 class CacheManagerViewModel : BaseViewModel() {
 
     //系统缓存
-    private val systemCacheDir = BaseApplication.getAppContext().cacheDir
+    private val systemCacheDir = BaseApplication.getContext().cacheDir
     val systemCachePath = ObservableField("")
     val systemCacheSizeText = ObservableField("")
 

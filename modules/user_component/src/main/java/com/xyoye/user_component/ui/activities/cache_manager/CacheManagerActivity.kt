@@ -1,6 +1,6 @@
 package com.xyoye.user_component.ui.activities.cache_manager
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.weight.dialog.CommonDialog
@@ -9,7 +9,7 @@ import com.xyoye.user_component.BR
 import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivityCacheManagerBinding
 
-@Route(path = RouteTable.User.CacheManager)
+@RouterAnno(hostAndPath = RouteTable.User.CacheManager)
 class CacheManagerActivity : BaseActivity<CacheManagerViewModel, ActivityCacheManagerBinding>() {
 
     override fun initViewModel() =

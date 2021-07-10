@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.core.widget.ImageViewCompat
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.FragmentAnimeEpisodeBinding
@@ -62,8 +62,7 @@ class AnimeEpisodeFragment :
 
                         itemLayout.setOnClickListener {
                             val episodeNum = getEpisodeNum(episodeInfo[0])
-                            ARouter.getInstance()
-                                .build(RouteTable.Anime.Search)
+                            NAV.raw(RouteTable.Anime.Search)
                                 .withString(
                                     "animeTitle",
                                     viewModel.animeTitleField.get()
@@ -130,7 +129,7 @@ class AnimeEpisodeFragment :
         if (matcher.find()) {
             return matcher.group().run {
                 var episode = substring(1, length - 1)
-                if (episode.length == 1){
+                if (episode.length == 1) {
                     episode = "0$episode"
                 }
                 episode

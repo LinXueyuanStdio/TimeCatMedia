@@ -7,47 +7,47 @@ import com.xyoye.mmkv_annotation.MMKVKotlinClass
  * Created by xyoye on 2020/9/21.
  */
 
-@MMKVKotlinClass(className = "DanmuConfig")
+//@MMKVKotlinClass(className = "DanmuConfig")
 object DanmuConfigTable {
 
     //弹幕文字大小百分比
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuSize = 40
 
     //弹幕文字速度百分比
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuSpeed = 35
 
     //弹幕文字透明度百分比
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuAlpha = 100
 
     //弹幕描边百分比
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuStoke = 20
 
     //是否显示滚动弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val showMobileDanmu = true
 
     //是否显示底部弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val showBottomDanmu = true
 
     //是否显示顶部弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val showTopDanmu = true
 
     //弹幕最大同屏数量
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuMaxCount = 0
 
     //弹幕最大显示行数
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuMaxLine = -1
 
     //开启弹幕云屏蔽
-    @MMKVFiled
+//    @MMKVFiled
     const val cloudDanmuBlock = true
 
     /**
@@ -55,33 +55,33 @@ object DanmuConfigTable {
      */
 
     //自动加载本地弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val autoLoadLocalDanmu = true
 
     //自动加载网络弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val autoLoadNetworkDanmu = true
 
     //网络视频自动加载同名弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val autoLoadDanmuNetworkStorage = true
 
     //网络视频自动匹配字幕
-    @MMKVFiled
+//    @MMKVFiled
     const val autoMatchDanmuNetworkStorage = true
 
     //根据屏幕刷新率绘制弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuUpdateInChoreographer = true
 
     //【外部视频】展示选择弹幕弹窗
-    @MMKVFiled
+//    @MMKVFiled
     const val showDialogBeforePlay = true
 
     //【外部视频】自动进入选择弹幕
-    @MMKVFiled
+//    @MMKVFiled
     const val autoLaunchDanmuBeforePlay = false
 
-    @MMKVFiled
+//    @MMKVFiled
     const val danmuDebug = false
 }

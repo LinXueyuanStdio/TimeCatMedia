@@ -3,8 +3,8 @@ package com.xyoye.anime_component.ui.fragment.home
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.FragmentHomeBinding
@@ -22,7 +22,7 @@ import java.util.*
  * Created by xyoye on 2020/7/28.
  */
 
-@Route(path = RouteTable.Anime.HomeFragment)
+@RouterAnno(hostAndPath = RouteTable.Anime.HomeFragment)
 class HomeFragment : BaseFragment<HomeFragmentViewModel, FragmentHomeBinding>() {
 
     override fun initViewModel() = ViewModelInit(
@@ -36,14 +36,10 @@ class HomeFragment : BaseFragment<HomeFragmentViewModel, FragmentHomeBinding>() 
         dataBinding.tabLayout.setupWithViewPager(dataBinding.viewpager)
 
         dataBinding.searchLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.Anime.Search)
-                .navigation()
+            NAV.go(RouteTable.Anime.Search)
         }
         dataBinding.seasonLl.setOnClickListener {
-            ARouter.getInstance()
-                .build(RouteTable.Anime.AnimeSeason)
-                .navigation()
+            NAV.go(RouteTable.Anime.AnimeSeason)
         }
 
         initViewModelObserve()

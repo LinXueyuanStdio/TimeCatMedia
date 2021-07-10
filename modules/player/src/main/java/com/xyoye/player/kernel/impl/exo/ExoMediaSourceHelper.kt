@@ -19,7 +19,7 @@ import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
 import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.google.android.exoplayer2.util.Util
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.utils.PathHelper
 
 /**
@@ -30,7 +30,7 @@ object ExoMediaSourceHelper {
 
     private lateinit var mCache: Cache
 
-    private val mContext = BaseApplication.getAppContext()
+    private val mContext = BaseApplication.getContext()
     private val mUserAgent: String
     private val mHttpDataSourceFactory: DefaultHttpDataSourceFactory
 

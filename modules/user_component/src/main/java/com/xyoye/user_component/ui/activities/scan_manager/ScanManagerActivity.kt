@@ -3,17 +3,16 @@ package com.xyoye.user_component.ui.activities.scan_manager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
-
 import com.xyoye.user_component.BR
 import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivityScanManagerBinding
 import com.xyoye.user_component.ui.fragment.scan_extend.ScanExtendFragment
 import com.xyoye.user_component.ui.fragment.scan_filter.ScanFilterFragment
 
-@Route(path = RouteTable.User.ScanManager)
+@RouterAnno(hostAndPath = RouteTable.User.ScanManager)
 class ScanManagerActivity : BaseActivity<ScanManagerViewModel, ActivityScanManagerBinding>() {
 
     override fun initViewModel() =

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import com.xyoye.common_component.base.BaseViewModel
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.extension.isNightMode
 
 class SwitchThemesViewModel : BaseViewModel() {
@@ -86,5 +86,5 @@ class SwitchThemesViewModel : BaseViewModel() {
         }
     }
 
-    private fun isSystemDarkMode() = BaseApplication.getAppContext().isNightMode()
+    private fun isSystemDarkMode() = BaseApplication.getContext().isNightMode()
 }

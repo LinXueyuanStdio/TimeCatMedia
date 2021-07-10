@@ -3,7 +3,7 @@ package com.xyoye.common_component.resolver
 import android.annotation.SuppressLint
 import android.database.Cursor
 import android.provider.MediaStore
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.utils.getDirPath
 import com.xyoye.data_component.entity.VideoEntity
 
@@ -24,7 +24,7 @@ class MediaResolver {
         )
 
         fun queryVideo(): MutableList<VideoEntity> {
-            val cursor = BaseApplication.getAppContext().contentResolver.query(
+            val cursor = BaseApplication.getContext().contentResolver.query(
                 MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 videoProjection,
                 null,

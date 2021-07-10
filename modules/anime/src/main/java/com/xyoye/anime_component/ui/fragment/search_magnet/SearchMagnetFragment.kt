@@ -2,7 +2,7 @@ package com.xyoye.anime_component.ui.fragment.search_magnet
 
 import android.os.Bundle
 import androidx.core.view.isVisible
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.FragmentSearchMagnetBinding
@@ -212,7 +212,7 @@ class SearchMagnetFragment :
     private fun showActionDialog(data: MagnetData) {
         BottomActionDialog(actionData, SheetActionType.VERTICAL) {
             val magnetHash = MagnetUtils.getMagnetHash(data.Magnet)
-            if (it != ACTION_COPY_MAGNET_CONTENT && magnetHash.isEmpty()){
+            if (it != ACTION_COPY_MAGNET_CONTENT && magnetHash.isEmpty()) {
                 ToastCenter.showError("错误，磁链为空或无法解析")
                 return@BottomActionDialog true
             }
@@ -221,8 +221,7 @@ class SearchMagnetFragment :
 
             when (it) {
                 ACTION_PLAY_SOURCE -> {
-                    ARouter.getInstance()
-                        .build(RouteTable.Download.PlaySelection)
+                    NAV.raw(RouteTable.Download.PlaySelection)
                         .withString("magnetLink", magnetLink)
                         .withString("torrentTitle", data.Title)
                         .navigation()

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.huawei.hms.hmsscankit.RemoteView
 import com.huawei.hms.ml.scan.HmsScan
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.min
 
-@Route(path = RouteTable.Stream.RemoteScan)
+@RouterAnno(hostAndPath = RouteTable.Stream.RemoteScan)
 class RemoteScanActivity : BaseActivity<RemoteScanViewModel, ActivityRemoteScanBinding>() {
 
     private lateinit var remoteView: RemoteView

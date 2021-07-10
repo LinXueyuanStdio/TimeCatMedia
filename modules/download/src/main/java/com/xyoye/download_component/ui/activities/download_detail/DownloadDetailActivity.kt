@@ -3,9 +3,9 @@ package com.xyoye.download_component.ui.activities.download_detail
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.weight.dialog.CommonDialog
@@ -17,11 +17,11 @@ import com.xyoye.download_component.ui.fragment.download_info.DownloadInfoFragme
 import com.xyoye.download_component.ui.fragment.download_peers.DownloadPeersFragment
 import com.xyoye.download_component.ui.fragment.download_tracker.DownloadTrackerFragment
 
-@Route(path = RouteTable.Download.DownloadDetail)
+@RouterAnno(hostAndPath = RouteTable.Download.DownloadDetail)
 class DownloadDetailActivity :
     BaseActivity<DownloadDetailViewModel, ActivityDownloadDetailBinding>() {
 
-    @Autowired
+    @AttrValueAutowiredAnno("infoHash")
     @JvmField
     var infoHash: String? = null
 
@@ -34,7 +34,7 @@ class DownloadDetailActivity :
     override fun getLayoutId() = R.layout.activity_download_detail
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = "任务详情"
 

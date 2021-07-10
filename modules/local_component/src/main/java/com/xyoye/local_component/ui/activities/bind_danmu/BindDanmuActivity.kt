@@ -3,9 +3,9 @@ package com.xyoye.local_component.ui.activities.bind_danmu
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addEmptyView
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
@@ -26,19 +26,19 @@ import com.xyoye.local_component.ui.dialog.DanmuDownloadDialog
 import com.xyoye.local_component.ui.dialog.DanmuSearchDialog
 import com.xyoye.local_component.utils.getAnimeType
 
-@Route(path = RouteTable.Local.BindDanmu)
+@RouterAnno(hostAndPath = RouteTable.Local.BindDanmu)
 class BindDanmuActivity : BaseActivity<BindDanmuViewModel, ActivityBindDanmuBinding>() {
 
+    @AttrValueAutowiredAnno("videoPath")
     @JvmField
-    @Autowired
     var videoPath: String? = null
 
+    @AttrValueAutowiredAnno("searchKeyword")
     @JvmField
-    @Autowired
     var searchKeyword: String? = null
 
+    @AttrValueAutowiredAnno("videoName")
     @JvmField
-    @Autowired
     var videoName: String? = null
 
     private var danmuDownloadDialog: DanmuDownloadDialog? = null
@@ -52,7 +52,7 @@ class BindDanmuActivity : BaseActivity<BindDanmuViewModel, ActivityBindDanmuBind
     override fun getLayoutId() = R.layout.activity_bind_danmu
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = "选绑弹幕"
 
@@ -90,7 +90,7 @@ class BindDanmuActivity : BaseActivity<BindDanmuViewModel, ActivityBindDanmuBind
                 it.first,
                 it.second
             ) { sources: MutableList<DanmuSourceBean>, isCheckedAll: Boolean ->
-                val danmuFileName = it.first.animeTitle+"_"+it.first.episodeTitle+".xml"
+                val danmuFileName = it.first.animeTitle + "_" + it.first.episodeTitle + ".xml"
                 viewModel.downloadDanmu(sources, isCheckedAll, videoPath, it.first.episodeId, danmuFileName)
             }
             danmuDownloadDialog!!.show(this)

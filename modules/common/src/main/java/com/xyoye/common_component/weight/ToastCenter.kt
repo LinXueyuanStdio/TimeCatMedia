@@ -15,9 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import com.xyoye.common_component.R
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 import com.xyoye.common_component.databinding.LayoutLevelToastBinding
 import com.xyoye.common_component.extension.isNightMode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Created by xyoye on 2020/9/7.
@@ -122,7 +125,7 @@ object ToastCenter {
         title: String? = null,
         showType: ShowType = ShowType.DARK
     ) {
-        val context = BaseApplication.getAppContext()
+        val context = BaseApplication.getContext()
         isDarkMode = when (showType) {
             ShowType.DARK -> true
             ShowType.COLOR -> false
@@ -134,7 +137,7 @@ object ToastCenter {
             }
         }
 
-        BaseApplication.getMainHandler().post {
+        GlobalScope.launch(Dispatchers.Main){
             makeAndShow(context, message, level, toastDuration, title)
         }
     }
@@ -220,7 +223,7 @@ object ToastCenter {
     private fun getLevelColor(level: Level): Int = mLevelColor[level] ?: R.color.info_color
 
     private fun showOriginalToast(context: Context, message: String, duration: Int) {
-        BaseApplication.getMainHandler().post {
+        GlobalScope.launch(Dispatchers.Main){
             Toast.makeText(context, message, duration).apply {
                 setText(message)
                 show()

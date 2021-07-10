@@ -1,8 +1,7 @@
 package com.xyoye.common_component.utils
 
 import androidx.core.content.pm.PackageInfoCompat
-import com.tencent.bugly.beta.Beta
-import com.xyoye.common_component.base.app.BaseApplication
+import com.timecat.extend.arms.BaseApplication
 
 /**
  * Created by xyoye on 2020/8/19.
@@ -11,9 +10,9 @@ import com.xyoye.common_component.base.app.BaseApplication
 object AppUtils {
     fun getVersionCode(): Long {
         if (SecurityHelper.getInstance().isOfficialApplication) {
-            val packageName = BaseApplication.getAppContext().applicationInfo.packageName
+            val packageName = BaseApplication.getContext().applicationInfo.packageName
             val packageInfo =
-                BaseApplication.getAppContext().packageManager.getPackageInfo(packageName, 0)
+                BaseApplication.getContext().packageManager.getPackageInfo(packageName, 0)
             return PackageInfoCompat.getLongVersionCode(packageInfo)
         }
         return 0L
@@ -21,15 +20,14 @@ object AppUtils {
 
     fun getVersionName(): String {
         if (SecurityHelper.getInstance().isOfficialApplication) {
-            val packageName = BaseApplication.getAppContext().applicationInfo.packageName
+            val packageName = BaseApplication.getContext().applicationInfo.packageName
             val packageInfo =
-                BaseApplication.getAppContext().packageManager.getPackageInfo(packageName, 0)
+                BaseApplication.getContext().packageManager.getPackageInfo(packageName, 0)
             return packageInfo.versionName
         }
         return "unknown"
     }
 
     fun checkUpdate() {
-        Beta.checkUpgrade(true, false)
     }
 }

@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
 import com.xyoye.anime_component.databinding.ActivitySearchBinding
@@ -22,17 +22,17 @@ import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.utils.hideKeyboard
 import com.xyoye.common_component.utils.showKeyboard
 
-@Route(path = RouteTable.Anime.Search)
+@RouterAnno(hostAndPath = RouteTable.Anime.Search)
 class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
-    @Autowired
+    @AttrValueAutowiredAnno("animeTitle")
     @JvmField
     var animeTitle: String? = null
 
-    @Autowired
+    @AttrValueAutowiredAnno("searchWord")
     @JvmField
     var searchWord: String? = null
 
-    @Autowired
+    @AttrValueAutowiredAnno("isSearchMagnet")
     @JvmField
     var isSearchMagnet: Boolean = false
 
@@ -47,7 +47,7 @@ class SearchActivity : BaseActivity<SearchViewModel, ActivitySearchBinding>() {
     override fun getLayoutId() = R.layout.activity_search
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         searchAdapter = SearchPageAdapter(supportFragmentManager, searchWord)
 

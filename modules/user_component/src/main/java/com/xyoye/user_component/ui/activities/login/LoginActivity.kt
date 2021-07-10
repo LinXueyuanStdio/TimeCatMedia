@@ -2,9 +2,9 @@ package com.xyoye.user_component.ui.activities.login
 
 import android.view.View
 import androidx.core.widget.addTextChangedListener
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseActivity
 import com.xyoye.common_component.config.RouteTable
 import com.xyoye.common_component.utils.SecurityHelper
@@ -17,10 +17,10 @@ import com.xyoye.user_component.BR
 import com.xyoye.user_component.R
 import com.xyoye.user_component.databinding.ActivityLoginBinding
 
-@Route(path = RouteTable.User.UserLogin)
+@RouterAnno(hostAndPath = RouteTable.User.UserLogin)
 class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
 
-    @Autowired
+    @AttrValueAutowiredAnno("userAccount")
     @JvmField
     var userAccount: String? = null
 
@@ -33,7 +33,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
     override fun getLayoutId() = R.layout.activity_login
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         title = ""
 
@@ -59,9 +59,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
             }
 
             registerTv.setOnClickListener {
-                ARouter.getInstance()
-                    .build(RouteTable.User.UserRegister)
-                    .navigation()
+                NAV.go(RouteTable.User.UserRegister)
             }
 
             forgotTv.setOnClickListener {
@@ -72,10 +70,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
                     ),
                     SheetActionType.VERTICAL
                 ) {
-                    ARouter.getInstance()
-                        .build(RouteTable.User.UserForgot)
-                        .withBoolean("isForgotPassword", it == 1)
-                        .navigation()
+                    NAV.go(RouteTable.User.UserForgot, "isForgotPassword", it == 1)
                     return@BottomActionDialog true
                 }.show(this@LoginActivity)
             }

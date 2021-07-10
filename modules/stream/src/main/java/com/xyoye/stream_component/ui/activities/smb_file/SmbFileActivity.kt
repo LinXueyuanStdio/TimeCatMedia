@@ -2,9 +2,14 @@ package com.xyoye.stream_component.ui.activities.smb_file
 
 import android.content.Intent
 import android.view.KeyEvent
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.timecat.component.router.app.ActivityResultCallback
+import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.AttrValueAutowiredAnno
+import com.xiaojinzi.component.anno.RouterAnno
+import com.xiaojinzi.component.bean.ActivityResult
+import com.xiaojinzi.component.impl.RouterErrorResult
+import com.xiaojinzi.component.impl.RouterRequest
+import com.xiaojinzi.component.impl.RouterResult
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity
@@ -24,13 +29,13 @@ import com.xyoye.stream_component.databinding.ActivitySmbFileBinding
 import com.xyoye.stream_component.databinding.ItemStorageFolderBinding
 import com.xyoye.stream_component.utils.smb.SMBFile
 
-@Route(path = RouteTable.Stream.SmbFile)
+@RouterAnno(hostAndPath = RouteTable.Stream.SmbFile)
 class SmbFileActivity : BaseActivity<SmbFileViewModel, ActivitySmbFileBinding>() {
     companion object {
         private const val PLAY_REQUEST_CODE = 1001
     }
 
-    @Autowired
+    @AttrValueAutowiredAnno("smbData")
     @JvmField
     var smbData: MediaLibraryEntity? = null
 
@@ -43,7 +48,7 @@ class SmbFileActivity : BaseActivity<SmbFileViewModel, ActivitySmbFileBinding>()
     override fun getLayoutId() = R.layout.activity_smb_file
 
     override fun initView() {
-        ARouter.getInstance().inject(this)
+        NAV.inject(this)
 
         if (smbData == null) {
             ToastCenter.showError("媒体库数据错误，请重试")
@@ -164,10 +169,22 @@ class SmbFileActivity : BaseActivity<SmbFileViewModel, ActivitySmbFileBinding>()
         }
 
         viewModel.playVideoLiveData.observe(this) {
-            ARouter.getInstance()
-                .build(RouteTable.Player.Player)
+            NAV.raw(RouteTable.Player.Player)
                 .withParcelable("playParams", it)
-                .navigation(this, PLAY_REQUEST_CODE)
+                .requestCode(PLAY_REQUEST_CODE)
+                .navigateForResult(object : ActivityResultCallback {
+                    override fun onCancel(originalRequest: RouterRequest?) {
+                    }
+
+                    override fun onError(errorResult: RouterErrorResult) {
+                    }
+
+                    override fun onSuccess(result: RouterResult, t: ActivityResult) {
+                        if (t.requestCode == PLAY_REQUEST_CODE) {
+                            viewModel.closeStream()
+                        }
+                    }
+                })
         }
     }
 
