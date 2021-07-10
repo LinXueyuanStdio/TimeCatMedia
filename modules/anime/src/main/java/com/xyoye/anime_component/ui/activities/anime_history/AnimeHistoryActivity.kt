@@ -95,10 +95,10 @@ class AnimeHistoryActivity : BaseActivity<AnimeHistoryViewModel, ActivityAnimeHi
                                     this@AnimeHistoryActivity, coverIv, coverIv.transitionName
                                 )
 
-                                NAV.raw(RouteTable.Anime.AnimeDetail)
+                                NAV.raw(this@AnimeHistoryActivity, RouteTable.Anime.AnimeDetail)
                                     .withInt("animeId", data.animeId)
-                                    .withOptionsCompat(options)
-                                    .navigation(this@AnimeHistoryActivity)
+                                    .options(options.toBundle())
+                                    .forward()
                             }
                         }
                     }

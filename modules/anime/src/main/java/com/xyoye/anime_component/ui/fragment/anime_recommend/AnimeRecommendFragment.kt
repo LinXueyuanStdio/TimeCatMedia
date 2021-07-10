@@ -84,10 +84,10 @@ class AnimeRecommendFragment :
                                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                     mAttachActivity, animeCoverIv, animeCoverIv.transitionName
                                 )
-                                NAV.raw(RouteTable.Anime.AnimeDetail)
+                                NAV.raw(mAttachActivity, RouteTable.Anime.AnimeDetail)
                                     .withInt("animeId", data.animeId)
-                                    .withOptionsCompat(options)
-                                    .navigation(mAttachActivity)
+                                    .options(options.toBundle())
+                                    .forward()
                             }
                         }
                     }

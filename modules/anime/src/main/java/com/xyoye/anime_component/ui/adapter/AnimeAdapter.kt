@@ -60,10 +60,10 @@ class AnimeAdapter : BaseAdapter<AnimeData>() {
                                 activity, coverIv, coverIv.transitionName
                             )
 
-                            NAV.raw(RouteTable.Anime.AnimeDetail)
+                            NAV.raw(activity, RouteTable.Anime.AnimeDetail)
                                 .withInt("animeId", data.animeId)
-                                .withOptionsCompat(options)
-                                .navigation(activity)
+                                .options(options.toBundle())
+                                .forward()
                         }
                     }
                 }

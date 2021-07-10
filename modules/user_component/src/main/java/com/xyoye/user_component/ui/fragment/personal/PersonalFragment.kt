@@ -102,9 +102,9 @@ class PersonalFragment : BaseFragment<PersonalFragmentViewModel, FragmentPersona
                 mAttachActivity, dataBinding.userCoverIv, dataBinding.userCoverIv.transitionName
             )
 
-            NAV.raw(RouteTable.User.UserInfo)
-                .withOptionsCompat(options)
-                .navigation(mAttachActivity)
+            NAV.raw(mAttachActivity, RouteTable.User.UserInfo)
+                .options(options.toBundle())
+                .forward()
         }
 
         dataBinding.followAnimeLl.setOnClickListener {
