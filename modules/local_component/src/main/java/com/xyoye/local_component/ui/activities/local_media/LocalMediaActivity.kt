@@ -4,6 +4,7 @@ import android.os.Parcelable
 import android.view.KeyEvent
 import androidx.core.view.isVisible
 import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
 import com.xyoye.common_component.base.BaseActivity

@@ -4,8 +4,6 @@ import com.xyoye.data_component.enums.PixelFormat
 import com.xyoye.data_component.enums.PlayerType
 import com.xyoye.data_component.enums.VLCHWDecode
 import com.xyoye.data_component.enums.VLCPixelFormat
-import com.xyoye.mmkv_annotation.MMKVFiled
-import com.xyoye.mmkv_annotation.MMKVKotlinClass
 
 //@MMKVKotlinClass(className = "PlayerConfig")
 object PlayerConfigTable {

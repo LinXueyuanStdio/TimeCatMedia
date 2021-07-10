@@ -1,8 +1,6 @@
 package com.xyoye.common_component.config
 
 import android.graphics.Color
-import com.xyoye.mmkv_annotation.MMKVFiled
-import com.xyoye.mmkv_annotation.MMKVKotlinClass
 
 /**
  * Created by xyoye on 2020/9/21.
@@ -11,7 +9,7 @@ import com.xyoye.mmkv_annotation.MMKVKotlinClass
 //@MMKVKotlinClass(className = "SubtitleConfig")
 object SubtitleConfigTable {
 
-//    @MMKVFiled
+    //    @MMKVFiled
     const val shooterSecret = ""
 
     //字幕文字大小百分比

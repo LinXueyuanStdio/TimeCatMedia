@@ -57,7 +57,7 @@ class SendDanmuDialog(
         }
 
         if (mContext is AppCompatActivity) {
-            PanelSwitchHelper.Builder(mContext.window, viewBinding.root)
+            PanelSwitchHelper.Builder(mContext.window.windowManager,mContext.window.attributes, viewBinding.root)
                 .addPanelChangeListener {
                     onNone {
                         dismiss()
@@ -71,7 +71,7 @@ class SendDanmuDialog(
                         viewBinding.fontEditIv.isSelected = true
                         updatePanel()
                     }
-                }.build(true)
+                }.build(viewBinding.panel)
         }
 
         initListener()

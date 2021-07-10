@@ -1,7 +1,6 @@
 package com.xyoye.common_component.adapter
 
 import androidx.databinding.ViewDataBinding
-import com.xyoye.mmkv_compiler.utils.throwException
 
 /**
  * Created by xyoye on 2020/7/7.
@@ -17,7 +16,7 @@ class BaseViewHolderDSL<T : Any, V : ViewDataBinding>(private val resourceId: In
 
     override fun isForViewType(data: T?, position: Int): Boolean {
         if (!this::viewType.isInitialized)
-            throwException("多类型Item需要类型判断：调用checkType")
+            throw Exception("多类型Item需要类型判断：调用checkType")
         if (data == null)
             return false
         return viewType.invoke(data, position)

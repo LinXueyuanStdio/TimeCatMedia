@@ -1,8 +1,5 @@
 package com.xyoye.common_component.config
 
-import com.xyoye.mmkv_annotation.MMKVFiled
-import com.xyoye.mmkv_annotation.MMKVKotlinClass
-
 /**
  * Created by xyoye on 2020/12/29.
  */

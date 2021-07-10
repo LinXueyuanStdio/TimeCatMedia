@@ -1,11 +1,6 @@
 apply from: "${project.rootDir}/gradle/library_header.gradle"
 
 android {
-    repositories {
-        flatDir {
-            dirs file('libs')
-        }
-    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -20,6 +15,7 @@ dependencies {
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
     api rootProject.ext.anime["data"]
+    api rootProject.ext.anime["sevenzipjbinding4Android"]
     api rootProject.ext.timecat["component-SelfRouter"]
 
     api rootProject.ext.dependencies["kotlin-stdlib-jdk7"]
@@ -54,8 +50,21 @@ dependencies {
 
     api 'com.github.bumptech.glide:glide:4.11.0'
     api 'org.nanohttpd:nanohttpd:2.3.1'
-
-    api(name: 'sevenzipjbinding4Android', ext: 'aar')
 }
 
 apply from: "${project.rootDir}/gradle/library_tail.gradle"
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        sevenzipjbinding4Android(MavenPublication) {
+            artifact "${project.projectDir}/libs/sevenzipjbinding4Android.aar"
+            groupId "com.timecat.libs"
+            artifactId "sevenzipjbinding4Android"
+            version "1.0.0"
+        }
+    }
+    repositories {
+        maven { url "file:///Users/zby/Documents/GitHub/mempool/TimeCatMaven" }
+    }
+}

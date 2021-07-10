@@ -8,22 +8,42 @@ android {
     buildFeatures {
         dataBinding = true
     }
-
-    repositories {
-        flatDir { dirs 'libs' }
-    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    api rootProject.ext.anime["common"]
-
-    implementation files('libs/jlibtorrent-1.2.11.0.jar')
-    implementation files('libs/jlibtorrent-android-arm-1.2.11.0.jar')
-
-    implementation(name: 'thunder', ext: 'aar')
+    implementation rootProject.ext.anime["common"]
+    implementation rootProject.ext.anime["jlibtorrent"]
+    implementation rootProject.ext.anime["jlibtorrent-android-arm"]
+    implementation rootProject.ext.anime["thunder"]
 }
 
 
 apply from: "${project.rootDir}/gradle/library_tail.gradle"
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        thunder(MavenPublication) {
+            artifact "${project.projectDir}/libs/thunder.aar"
+            groupId "com.timecat.libs"
+            artifactId "thunder"
+            version "1.0.0"
+        }
+        def torrent_version = "1.2.11.0"
+        jlibtorrent(MavenPublication) {
+            artifact "${project.projectDir}/libs/jlibtorrent-${torrent_version}.jar"
+            groupId "com.timecat.libs"
+            artifactId "jlibtorrent"
+            version torrent_version
+        }
+        jlibtorrent_arm(MavenPublication) {
+            artifact "${project.projectDir}/libs/jlibtorrent-android-arm-${torrent_version}.jar"
+            groupId "com.timecat.libs"
+            artifactId "jlibtorrent-android-arm"
+            version torrent_version
+        }
+    }
+    repositories {
+        maven { url "file:///Users/zby/Documents/GitHub/mempool/TimeCatMaven" }
+    }
+}

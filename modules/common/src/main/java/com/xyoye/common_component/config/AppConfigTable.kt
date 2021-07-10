@@ -1,8 +1,6 @@
 package com.xyoye.common_component.config
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.xyoye.mmkv_annotation.MMKVFiled
-import com.xyoye.mmkv_annotation.MMKVKotlinClass
 
 //@MMKVKotlinClass(className = "AppConfig")
 object AppConfigTable {
@@ -18,35 +16,35 @@ object AppConfigTable {
 //    @MMKVFiled
     var showHiddenFile = false
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //是否展示FTP播放视频提示
     var showFTPVideoTips = true
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //磁链搜索节点
     var magnetResDomain: String? = null
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //最后一次更新云屏蔽信息的时间
     var cloudBlockUpdateTime: Long = 0
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //深色模式状态
     var darkMode: Int = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //常用目录1
     var commonlyFolder1: String? = null
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //常用目录2
     var commonlyFolder2: String? = null
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //上次打开目录
-    var lastOpenFolder : String? = null
+    var lastOpenFolder: String? = null
 
-//    @MMKVFiled
+    //    @MMKVFiled
     //上次打开目录开关
-    var lastOpenFolderEnable : Boolean = true
+    var lastOpenFolderEnable: Boolean = true
 }

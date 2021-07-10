@@ -1,6 +1,14 @@
 ext {
     anime = [
-            "data": "com.timecat.component:anime_data:+",
-            "common": "com.timecat.component:anime_common:+"
+            "data"                    : "com.timecat.component:anime_data:+",
+            "sevenzipjbinding4Android": "com.timecat.libs:sevenzipjbinding4Android:+",
+            "DanmakuFlameMaster"      : "com.timecat.libs:DanmakuFlameMaster:+",
+            "thunder"                 : "com.timecat.libs:thunder:+",
+            "jlibtorrent"             : "com.timecat.libs:jlibtorrent:+",
+            "jlibtorrent-android-arm" : "com.timecat.libs:jlibtorrent-android-arm:+",
+            "common"                  : "com.timecat.component:anime_common:+",
+            "anime_download"          : "com.timecat.component:anime_download:+",
+            "anime_local"             : "com.timecat.component:anime_local:+",
+            "anime_player"            : "com.timecat.component:anime_player:+",
     ]
 }

@@ -41,7 +41,6 @@ allprojects {
 
     repositories {
         maven { url "file://${localMavenDir.absolutePath}" }
-
         google()
         jcenter()
         maven { url "https://jitpack.io" }
