@@ -69,5 +69,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    api project(':module-git')
+    implementation rootProject.ext.anime["anime"]
+    implementation rootProject.ext.anime["anime_download"]
+    implementation rootProject.ext.anime["anime_local"]
+    implementation rootProject.ext.anime["anime_player"]
+    implementation rootProject.ext.anime["anime_stream"]
 }
