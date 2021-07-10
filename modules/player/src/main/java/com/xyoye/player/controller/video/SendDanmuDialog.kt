@@ -71,7 +71,7 @@ class SendDanmuDialog(
                         viewBinding.fontEditIv.isSelected = true
                         updatePanel()
                     }
-                }.build(viewBinding.panel)
+                }.build(viewBinding.panelSwitchLayout, true)
         }
 
         initListener()

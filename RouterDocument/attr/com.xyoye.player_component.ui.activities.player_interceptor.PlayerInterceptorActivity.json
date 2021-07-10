@@ -1,1 +1,1 @@
-[{"attrKey":["searchKeyword"],"attrType":"java.lang.String"},{"attrKey":["playParams"],"attrType":"com.xyoye.data_component.bean.PlayParams"}]
+[{"attrKey":["playParams"],"attrType":"com.xyoye.data_component.bean.PlayParams"},{"attrKey":["searchKeyword"],"attrType":"java.lang.String"}]
