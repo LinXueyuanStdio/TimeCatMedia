@@ -16,6 +16,7 @@
             android:name=".ui.activities.play_selection.PlaySelectionActivity"
             android:theme="@style/DialogActivityTheme"
             android:configChanges="orientation|screenSize" />
+        <activity android:name=".MainActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

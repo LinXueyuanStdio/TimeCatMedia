@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.FragmentAnno
 import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.anime_component.BR
 import com.xyoye.anime_component.R
@@ -22,7 +23,7 @@ import java.util.*
  * Created by xyoye on 2020/7/28.
  */
 
-@RouterAnno(hostAndPath = RouteTable.Anime.HomeFragment)
+@FragmentAnno(RouteTable.Anime.HomeFragment)
 class HomeFragment : BaseFragment<HomeFragmentViewModel, FragmentHomeBinding>() {
 
     override fun initViewModel() = ViewModelInit(

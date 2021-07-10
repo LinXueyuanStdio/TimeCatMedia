@@ -8,6 +8,9 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/jni'
+    }
 }
 
 dependencies {
@@ -31,8 +34,8 @@ dependencies {
 
 apply from: "${project.rootDir}/gradle/library_tail.gradle"
 
-
 apply plugin: 'maven-publish'
+
 publishing {
     publications {
         DanmakuFlameMaster(MavenPublication) {

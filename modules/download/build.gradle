@@ -13,7 +13,7 @@ android {
 dependencies {
     implementation rootProject.ext.anime["common"]
     implementation rootProject.ext.anime["jlibtorrent"]
-    implementation rootProject.ext.anime["jlibtorrent-android-arm"]
+    implementation rootProject.ext.anime["jlibtorrent-android-arm64"]
     implementation rootProject.ext.anime["thunder"]
 }
 
@@ -40,6 +40,12 @@ publishing {
             artifact "${project.projectDir}/libs/jlibtorrent-android-arm-${torrent_version}.jar"
             groupId "com.timecat.libs"
             artifactId "jlibtorrent-android-arm"
+            version torrent_version
+        }
+        jlibtorrent_arm64(MavenPublication) {
+            artifact "${project.projectDir}/libs/jlibtorrent-android-arm64-${torrent_version}.jar"
+            groupId "com.timecat.libs"
+            artifactId "jlibtorrent-android-arm64"
             version torrent_version
         }
     }

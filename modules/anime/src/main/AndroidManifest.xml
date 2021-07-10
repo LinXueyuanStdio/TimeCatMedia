@@ -20,6 +20,7 @@
             android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activities.anime_tag.AnimeTagActivity"
             android:configChanges="orientation|screenSize"/>
+        <activity android:name=".ui.activities.main.MainActivity" />
     </application>
 
 </manifest>

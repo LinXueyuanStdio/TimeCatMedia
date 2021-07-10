@@ -1,22 +1,23 @@
 ext {
     anime = [
-            "anime"                   : "com.timecat.component:anime:+",
+            "anime"                    : "com.timecat.component:anime:+",
 
-            "common"                  : "com.timecat.component:anime_common:+",
-            "sevenzipjbinding4Android": "com.timecat.libs:sevenzipjbinding4Android:+",
+            "common"                   : "com.timecat.component:anime_common:+",
+            "sevenzipjbinding4Android" : "com.timecat.libs:sevenzipjbinding4Android:+",
 
-            "data"                    : "com.timecat.component:anime_data:+",
+            "data"                     : "com.timecat.component:anime_data:+",
 
-            "anime_download"          : "com.timecat.component:anime_download:+",
-            "thunder"                 : "com.timecat.libs:thunder:+",
-            "jlibtorrent"             : "com.timecat.libs:jlibtorrent:+",
-            "jlibtorrent-android-arm" : "com.timecat.libs:jlibtorrent-android-arm:+",
+            "anime_download"           : "com.timecat.component:anime_download:+",
+            "thunder"                  : "com.timecat.libs:thunder:+",
+            "jlibtorrent"              : "com.timecat.libs:jlibtorrent:+",
+            "jlibtorrent-android-arm"  : "com.timecat.libs:jlibtorrent-android-arm:+",
+            "jlibtorrent-android-arm64": "com.timecat.libs:jlibtorrent-android-arm64:+",
 
-            "anime_local"             : "com.timecat.component:anime_local:+",
+            "anime_local"              : "com.timecat.component:anime_local:+",
 
-            "anime_player"            : "com.timecat.component:anime_player:+",
-            "DanmakuFlameMaster"      : "com.timecat.libs:DanmakuFlameMaster:+",
+            "anime_player"             : "com.timecat.component:anime_player:+",
+            "DanmakuFlameMaster"       : "com.timecat.libs:DanmakuFlameMaster:+",
 
-            "anime_stream"            : "com.timecat.component:anime_stream:+",
+            "anime_stream"             : "com.timecat.component:anime_stream:+",
     ]
 }

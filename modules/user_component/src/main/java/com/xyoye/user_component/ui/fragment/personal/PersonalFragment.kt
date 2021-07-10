@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
 import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.FragmentAnno
 import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.base.BaseFragment
 import com.xyoye.common_component.bridge.LoginObserver
@@ -21,7 +22,7 @@ import com.xyoye.user_component.ui.dialog.UserCoverDialog
  * Created by xyoye on 2020/7/28.
  */
 
-@RouterAnno(hostAndPath = RouteTable.User.PersonalFragment)
+@FragmentAnno(RouteTable.User.PersonalFragment)
 class PersonalFragment : BaseFragment<PersonalFragmentViewModel, FragmentPersonalBinding>() {
 
     override fun initViewModel() = ViewModelInit(

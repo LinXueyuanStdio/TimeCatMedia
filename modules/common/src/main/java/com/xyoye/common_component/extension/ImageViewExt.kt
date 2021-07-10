@@ -8,6 +8,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.xyoye.common_component.utils.dp2px
 
 /**
@@ -18,16 +19,14 @@ fun ImageView.setGlideImage(source: String?, dpRadius: Int = 0, @DrawableRes err
     if (dpRadius > 0) {
         Glide.with(this)
             .asBitmap()
-            .error(errorRes)
-            .load(source)
             .transition((BitmapTransitionOptions.withCrossFade()))
-            .transform(CenterCrop(), RoundedCorners(dp2px(dpRadius)))
+            .apply(RequestOptions.centerCropTransform().transform(RoundedCorners(dp2px(dpRadius))).error(errorRes))
+            .load(source)
             .into(this)
     } else {
         Glide.with(this)
             .load(source)
-            .error(errorRes)
-            .transform(CenterCrop())
+            .apply(RequestOptions.centerCropTransform().error(errorRes))
             .transition((DrawableTransitionOptions.withCrossFade()))
             .into(this)
     }
@@ -38,15 +37,13 @@ fun ImageView.setGlideImage(source: Uri?, dpRadius: Int = 0, @DrawableRes errorR
         Glide.with(this)
             .asBitmap()
             .load(source)
-            .error(errorRes)
-            .transform(CenterCrop(), RoundedCorners(dp2px(dpRadius)))
+            .apply(RequestOptions.centerCropTransform().transform(RoundedCorners(dp2px(dpRadius))).error(errorRes))
             .transition((BitmapTransitionOptions.withCrossFade()))
             .into(this)
     } else {
         Glide.with(this)
             .load(source)
-            .error(errorRes)
-            .transform(CenterCrop())
+            .apply(RequestOptions.centerCropTransform().error(errorRes))
             .transition((DrawableTransitionOptions.withCrossFade()))
             .into(this)
     }

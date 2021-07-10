@@ -3,6 +3,7 @@ package com.xyoye.local_component.ui.fragment.media
 import android.Manifest
 import android.os.Parcelable
 import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.anno.FragmentAnno
 import com.xiaojinzi.component.anno.RouterAnno
 import com.xyoye.common_component.adapter.addItem
 import com.xyoye.common_component.adapter.buildAdapter
@@ -30,7 +31,7 @@ import java.io.Serializable
  * Created by xyoye on 2020/7/27.
  */
 
-@RouterAnno(hostAndPath = RouteTable.Local.MediaFragment)
+@FragmentAnno(RouteTable.Local.MediaFragment)
 class MediaFragment : BaseFragment<MediaViewModel, FragmentMediaBinding>() {
     companion object {
         private const val ACTION_ADD_FTP_LIBRARY = 1
