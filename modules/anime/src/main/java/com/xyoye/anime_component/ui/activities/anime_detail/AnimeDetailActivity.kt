@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.appbar.AppBarLayout
 import com.gyf.immersionbar.ImmersionBar
@@ -158,9 +159,8 @@ class AnimeDetailActivity : BaseActivity<AnimeDetailViewModel, ActivityAnimeDeta
                 Glide.with(dataBinding.coverIv)
                     .asBitmap()
                     .load(imageUrl)
-                    .error(R.drawable.ic_load_image_failed)
+                    .apply(RequestOptions.centerCropTransform().transform(RoundedCorners(dp2px(3))).error(R.drawable.ic_load_image_failed))
                     .transition((BitmapTransitionOptions.withCrossFade()))
-                    .transform(CenterCrop(), RoundedCorners(dp2px(3)))
                     .addListener(object : RequestListener<Bitmap> {
                         override fun onLoadFailed(
                             e: GlideException?,

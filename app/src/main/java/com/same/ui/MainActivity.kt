@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import com.timecat.component.commonsdk.utils.override.LogUtil
 import com.timecat.component.router.app.NAV
+import com.xiaojinzi.component.Component
+import com.xiaojinzi.component.Config
 import com.xyoye.anime_component.ui.activities.main.MainActivity
 import com.xyoye.common_component.config.RouteTable
 
@@ -16,17 +19,22 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LogUtil.DEBUG = true
         val linearLayout = LinearLayout(this)
         linearLayout.orientation = LinearLayout.VERTICAL
 
+
+        // 初始化
         linearLayout.addView(createButton("anim") {
-            NAV.go("main/fragment", "url", RouteTable.Anime.HomeFragment)
+            NAV.go("main/fragment/download", "url", RouteTable.Anime.HomeFragment)
         })
-//        linearLayout.addView(createButton("anim_download") {
-//            startActivity(Intent(this, com.xyoye.download_component.MainActivity::class.java))
-//        })
+        linearLayout.addView(createButton("MainActivity") {
+            startActivity(Intent(this, MainActivity::class.java))
+        })
         linearLayout.addView(createButton("anim_local") {
-            NAV.go("main/fragment", "url", RouteTable.Local.MediaFragment)
+            NAV.go("main/fragment/download", "url", RouteTable.Local.MediaFragment)
+        })
+        linearLayout.addView(createButton("anim_download") {
         })
         linearLayout.addView(createButton("anim_player") {
             NAV.go(RouteTable.Player.PlayerCenter)

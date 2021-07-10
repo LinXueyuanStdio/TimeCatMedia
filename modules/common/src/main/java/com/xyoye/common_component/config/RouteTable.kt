@@ -5,11 +5,9 @@ package com.xyoye.common_component.config
  *
  * 路由表
  */
-
 object RouteTable {
-    const val HOST = "anime"
-
     object Anime {
+        const val HOST = "Anime"
         const val Search = "$HOST/anime/search"
         const val HomeFragment = "$HOST/anime/home_fragment"
         const val AnimeDetail = "$HOST/anime/anime_detail"
@@ -20,6 +18,7 @@ object RouteTable {
     }
 
     object Local {
+        const val HOST = "Local"
         const val MediaFragment = "$HOST/local/media_fragment"
         const val BindDanmu = "$HOST/local/bind_danmu"
         const val BindSubtitle = "$HOST/local/bind_subtitle"
@@ -30,6 +29,7 @@ object RouteTable {
     }
 
     object User {
+        const val HOST = "User"
         const val PersonalFragment = "$HOST/user/personal_fragment"
         const val UserLogin = "$HOST/user/login"
         const val UserRegister = "$HOST/user/register"
@@ -48,11 +48,13 @@ object RouteTable {
     }
 
     object Player {
+        const val HOST = "Player"
         const val Player = "$HOST/player/player_interceptor"
         const val PlayerCenter = "$HOST/player/player"
     }
 
     object Download {
+        const val HOST = "Download"
         const val DownloadSelection = "$HOST/download/selection"
         const val DownloadList = "$HOST/download/list"
         const val DownloadDetail = "$HOST/download/detail"
@@ -60,6 +62,7 @@ object RouteTable {
     }
 
     object Stream {
+        const val HOST = "Stream"
         const val WebDavLogin = "$HOST/stream/web_dav_login"
         const val WebDavFile = "$HOST/stream/web_dav_file"
         const val FTPLogin = "$HOST/stream/ftp_login"

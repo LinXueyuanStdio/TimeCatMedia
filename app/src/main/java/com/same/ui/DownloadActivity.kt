@@ -15,7 +15,7 @@ import com.xyoye.common_component.config.RouteTable
  * @description null
  * @usage null
  */
-@RouterAnno(hostAndPath = "main/fragment")
+@RouterAnno(hostAndPath = "main/fragment/download")
 class DownloadActivity : BaseFragmentActivity() {
     @AttrValueAutowiredAnno("url")
     @JvmField

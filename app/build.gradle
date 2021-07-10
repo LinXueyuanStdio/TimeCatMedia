@@ -44,6 +44,16 @@ android {
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "moduleName"     : project.getName(),
+                        "HOST"           : project.getName().replace("-", ""),
+                        "RouterDocFolder": "${project.rootDir}/RouterDocument".toString(),
+                        "RouterDocEnable": String.valueOf("true")
+                ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -72,10 +82,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation rootProject.ext.anime["anime"]
-//    implementation rootProject.ext.anime["anime_download"]
-    implementation rootProject.ext.anime["anime_local"]
-    implementation rootProject.ext.anime["anime_player"]
-    implementation rootProject.ext.anime["anime_stream"]
-    implementation rootProject.ext.timecat["middle-block"]
+    api rootProject.ext.anime["anime"]
+    api rootProject.ext.anime["anime_download"]
+    api rootProject.ext.anime["anime_local"]
+//    api rootProject.ext.anime["anime_player"]
+    api rootProject.ext.anime["anime_stream"]
+    api rootProject.ext.timecat["middle-block"]
+    kapt rootProject.ext.dependencies["router-compiler"]
 }

@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.palette.graphics.Palette
-import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import kotlin.math.roundToInt
 
@@ -13,7 +13,7 @@ import kotlin.math.roundToInt
  * Created by xyoye on 2020/10/8.
  */
 
-abstract class PaletteBitmapTarget(private var defaultPalette: Int = -1) : CustomTarget<Bitmap>() {
+abstract class PaletteBitmapTarget(private var defaultPalette: Int = -1) : SimpleTarget<Bitmap>() {
 
     companion object {
         private val paletteColor = Color.parseColor("#121212")
