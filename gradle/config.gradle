@@ -1,6 +1,6 @@
 ext {
     anime = [
             "data": "com.timecat.component:anime_data:+",
-            "common": "com.timecat.component:anime_commmon:+"
+            "common": "com.timecat.component:anime_common:+"
     ]
 }

@@ -6,11 +6,6 @@ android {
             dirs file('libs')
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
